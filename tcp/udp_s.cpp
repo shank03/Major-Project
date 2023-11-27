@@ -12,7 +12,7 @@ struct congestion_state {
 
     void convert(char buff[6]) {
         buff[0] = send;
-        buff[1] = 1; /* non-zero padding */
+        buff[1] = 0; /* padding */
         buff[2] = value & 0xFF;
         buff[3] = (value >> 8) & 0xFF;
         buff[4] = delay & 0xFF;
