@@ -1,0 +1,2027 @@
+Calling target program-options parser
+[10:01:52.787] [bmv2] [D] [thread 2239] Set default default entry for table 'L3_Ingress.ipv4_lpm': L3_Ingress.drop - 
+[10:01:52.787] [bmv2] [D] [thread 2239] Set default default entry for table 'L3_Ingress.mac_table': L3_Ingress.drop - 
+Adding interface r1-eth1 as port 1
+[10:01:52.788] [bmv2] [D] [thread 2239] Adding interface r1-eth1 as port 1
+Adding interface r1-eth2 as port 2
+[10:01:52.855] [bmv2] [D] [thread 2239] Adding interface r1-eth2 as port 2
+Server listening on 0.0.0.0:50051
+[10:01:52.960] [bmv2] [I] [thread 2239] Starting Thrift server on port 9090
+[10:01:52.961] [bmv2] [I] [thread 2239] Thrift server was started
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Processing packet received on port 1
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Parser 'parser': start
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Extracting header 'ethernet'
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:53.036] [bmv2] [T] [thread 2249] [0.0] [cxt 0] Bytes parsed: 14
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Parser 'parser': end
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Pipeline 'ingress': start
+[10:01:53.036] [bmv2] [T] [thread 2249] [0.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.036] [bmv2] [T] [thread 2249] [0.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.036] [bmv2] [T] [thread 2249] [0.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.036] [bmv2] [T] [thread 2249] [0.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.036] [bmv2] [T] [thread 2249] [0.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.036] [bmv2] [T] [thread 2249] [0.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Pipeline 'ingress': end
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Egress port is 511
+[10:01:53.036] [bmv2] [D] [thread 2249] [0.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:53.115] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Processing packet received on port 1
+[10:01:53.115] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Parser 'parser': start
+[10:01:53.115] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:53.115] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Extracting header 'ethernet'
+[10:01:53.115] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:53.115] [bmv2] [T] [thread 2249] [1.0] [cxt 0] Bytes parsed: 14
+[10:01:53.116] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Parser 'parser': end
+[10:01:53.116] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Pipeline 'ingress': start
+[10:01:53.116] [bmv2] [T] [thread 2249] [1.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:53.116] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.116] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:53.116] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.116] [bmv2] [T] [thread 2249] [1.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.116] [bmv2] [T] [thread 2249] [1.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.116] [bmv2] [T] [thread 2249] [1.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:53.116] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.116] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:53.116] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.116] [bmv2] [T] [thread 2249] [1.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.116] [bmv2] [T] [thread 2249] [1.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.116] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Pipeline 'ingress': end
+[10:01:53.116] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Egress port is 511
+[10:01:53.116] [bmv2] [D] [thread 2249] [1.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Processing packet received on port 1
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Parser 'parser': start
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Extracting header 'ethernet'
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:53.285] [bmv2] [T] [thread 2249] [2.0] [cxt 0] Bytes parsed: 14
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Parser 'parser': end
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Pipeline 'ingress': start
+[10:01:53.285] [bmv2] [T] [thread 2249] [2.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.285] [bmv2] [T] [thread 2249] [2.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.285] [bmv2] [T] [thread 2249] [2.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.285] [bmv2] [T] [thread 2249] [2.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.285] [bmv2] [T] [thread 2249] [2.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.285] [bmv2] [T] [thread 2249] [2.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Pipeline 'ingress': end
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Egress port is 511
+[10:01:53.285] [bmv2] [D] [thread 2249] [2.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:53.435] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Processing packet received on port 2
+[10:01:53.435] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Parser 'parser': start
+[10:01:53.435] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:53.435] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Extracting header 'ethernet'
+[10:01:53.435] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:53.436] [bmv2] [T] [thread 2249] [3.0] [cxt 0] Bytes parsed: 14
+[10:01:53.436] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Parser 'parser': end
+[10:01:53.436] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Pipeline 'ingress': start
+[10:01:53.436] [bmv2] [T] [thread 2249] [3.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:53.436] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.436] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:53.436] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.436] [bmv2] [T] [thread 2249] [3.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.436] [bmv2] [T] [thread 2249] [3.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.436] [bmv2] [T] [thread 2249] [3.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:53.436] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.436] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:53.436] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.436] [bmv2] [T] [thread 2249] [3.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.436] [bmv2] [T] [thread 2249] [3.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.436] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Pipeline 'ingress': end
+[10:01:53.436] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Egress port is 511
+[10:01:53.436] [bmv2] [D] [thread 2249] [3.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Processing packet received on port 2
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Parser 'parser': start
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Extracting header 'ethernet'
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:53.436] [bmv2] [T] [thread 2249] [4.0] [cxt 0] Bytes parsed: 14
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Parser 'parser': end
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Pipeline 'ingress': start
+[10:01:53.436] [bmv2] [T] [thread 2249] [4.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.436] [bmv2] [T] [thread 2249] [4.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.436] [bmv2] [T] [thread 2249] [4.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.436] [bmv2] [T] [thread 2249] [4.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.436] [bmv2] [T] [thread 2249] [4.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.436] [bmv2] [T] [thread 2249] [4.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Pipeline 'ingress': end
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Egress port is 511
+[10:01:53.436] [bmv2] [D] [thread 2249] [4.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Processing packet received on port 2
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Parser 'parser': start
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Extracting header 'ethernet'
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:53.436] [bmv2] [T] [thread 2249] [5.0] [cxt 0] Bytes parsed: 14
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Parser 'parser': end
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Pipeline 'ingress': start
+[10:01:53.436] [bmv2] [T] [thread 2249] [5.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.436] [bmv2] [T] [thread 2249] [5.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.436] [bmv2] [T] [thread 2249] [5.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.436] [bmv2] [T] [thread 2249] [5.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.436] [bmv2] [T] [thread 2249] [5.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.436] [bmv2] [T] [thread 2249] [5.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Pipeline 'ingress': end
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Egress port is 511
+[10:01:53.436] [bmv2] [D] [thread 2249] [5.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Processing packet received on port 2
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Parser 'parser': start
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Extracting header 'ethernet'
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:53.436] [bmv2] [T] [thread 2249] [6.0] [cxt 0] Bytes parsed: 14
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Parser 'parser': end
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Pipeline 'ingress': start
+[10:01:53.436] [bmv2] [T] [thread 2249] [6.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.436] [bmv2] [T] [thread 2249] [6.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.436] [bmv2] [T] [thread 2249] [6.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.436] [bmv2] [T] [thread 2249] [6.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.436] [bmv2] [T] [thread 2249] [6.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.436] [bmv2] [T] [thread 2249] [6.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Pipeline 'ingress': end
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Egress port is 511
+[10:01:53.436] [bmv2] [D] [thread 2249] [6.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Processing packet received on port 2
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Parser 'parser': start
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Extracting header 'ethernet'
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:53.495] [bmv2] [T] [thread 2249] [7.0] [cxt 0] Bytes parsed: 14
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Parser 'parser': end
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Pipeline 'ingress': start
+[10:01:53.495] [bmv2] [T] [thread 2249] [7.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.495] [bmv2] [T] [thread 2249] [7.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.495] [bmv2] [T] [thread 2249] [7.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.495] [bmv2] [T] [thread 2249] [7.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.495] [bmv2] [T] [thread 2249] [7.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.495] [bmv2] [T] [thread 2249] [7.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Pipeline 'ingress': end
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Egress port is 511
+[10:01:53.495] [bmv2] [D] [thread 2249] [7.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Processing packet received on port 1
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Parser 'parser': start
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Extracting header 'ethernet'
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:53.756] [bmv2] [T] [thread 2249] [8.0] [cxt 0] Bytes parsed: 14
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Parser 'parser': end
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Pipeline 'ingress': start
+[10:01:53.756] [bmv2] [T] [thread 2249] [8.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.756] [bmv2] [T] [thread 2249] [8.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.756] [bmv2] [T] [thread 2249] [8.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.756] [bmv2] [T] [thread 2249] [8.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.756] [bmv2] [T] [thread 2249] [8.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.756] [bmv2] [T] [thread 2249] [8.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Pipeline 'ingress': end
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Egress port is 511
+[10:01:53.756] [bmv2] [D] [thread 2249] [8.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Processing packet received on port 1
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Parser 'parser': start
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Extracting header 'ethernet'
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:53.756] [bmv2] [T] [thread 2249] [9.0] [cxt 0] Bytes parsed: 14
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Parser 'parser': end
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Pipeline 'ingress': start
+[10:01:53.756] [bmv2] [T] [thread 2249] [9.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.756] [bmv2] [T] [thread 2249] [9.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.756] [bmv2] [T] [thread 2249] [9.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.756] [bmv2] [T] [thread 2249] [9.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:53.756] [bmv2] [T] [thread 2249] [9.0] [cxt 0] Action L3_Ingress.drop
+[10:01:53.756] [bmv2] [T] [thread 2249] [9.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Pipeline 'ingress': end
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Egress port is 511
+[10:01:53.756] [bmv2] [D] [thread 2249] [9.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Processing packet received on port 1
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Parser 'parser': start
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Extracting header 'ethernet'
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:54.076] [bmv2] [T] [thread 2249] [10.0] [cxt 0] Bytes parsed: 14
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Parser 'parser': end
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Pipeline 'ingress': start
+[10:01:54.076] [bmv2] [T] [thread 2249] [10.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:54.076] [bmv2] [T] [thread 2249] [10.0] [cxt 0] Action L3_Ingress.drop
+[10:01:54.076] [bmv2] [T] [thread 2249] [10.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:54.076] [bmv2] [T] [thread 2249] [10.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:54.076] [bmv2] [T] [thread 2249] [10.0] [cxt 0] Action L3_Ingress.drop
+[10:01:54.076] [bmv2] [T] [thread 2249] [10.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Pipeline 'ingress': end
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Egress port is 511
+[10:01:54.076] [bmv2] [D] [thread 2249] [10.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:54.076] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Processing packet received on port 1
+[10:01:54.076] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Parser 'parser': start
+[10:01:54.076] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:54.076] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Extracting header 'ethernet'
+[10:01:54.076] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:54.076] [bmv2] [T] [thread 2249] [11.0] [cxt 0] Bytes parsed: 14
+[10:01:54.076] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Parser 'parser': end
+[10:01:54.076] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Pipeline 'ingress': start
+[10:01:54.076] [bmv2] [T] [thread 2249] [11.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:54.076] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:54.076] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:54.076] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:54.076] [bmv2] [T] [thread 2249] [11.0] [cxt 0] Action L3_Ingress.drop
+[10:01:54.076] [bmv2] [T] [thread 2249] [11.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:54.076] [bmv2] [T] [thread 2249] [11.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:54.076] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:54.077] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:54.077] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:54.077] [bmv2] [T] [thread 2249] [11.0] [cxt 0] Action L3_Ingress.drop
+[10:01:54.077] [bmv2] [T] [thread 2249] [11.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:54.077] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Pipeline 'ingress': end
+[10:01:54.077] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Egress port is 511
+[10:01:54.077] [bmv2] [D] [thread 2249] [11.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:54.295] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Processing packet received on port 1
+[10:01:54.295] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Parser 'parser': start
+[10:01:54.295] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:54.295] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Extracting header 'ethernet'
+[10:01:54.295] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:54.295] [bmv2] [T] [thread 2249] [12.0] [cxt 0] Bytes parsed: 14
+[10:01:54.295] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Parser 'parser': end
+[10:01:54.295] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Pipeline 'ingress': start
+[10:01:54.295] [bmv2] [T] [thread 2249] [12.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:54.295] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:54.295] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:54.295] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:54.295] [bmv2] [T] [thread 2249] [12.0] [cxt 0] Action L3_Ingress.drop
+[10:01:54.295] [bmv2] [T] [thread 2249] [12.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:54.296] [bmv2] [T] [thread 2249] [12.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:54.296] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:54.296] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:54.296] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:54.296] [bmv2] [T] [thread 2249] [12.0] [cxt 0] Action L3_Ingress.drop
+[10:01:54.296] [bmv2] [T] [thread 2249] [12.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:54.296] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Pipeline 'ingress': end
+[10:01:54.296] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Egress port is 511
+[10:01:54.296] [bmv2] [D] [thread 2249] [12.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Processing packet received on port 2
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Parser 'parser': start
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Extracting header 'ethernet'
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:54.475] [bmv2] [T] [thread 2249] [13.0] [cxt 0] Bytes parsed: 14
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Parser 'parser': end
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Pipeline 'ingress': start
+[10:01:54.475] [bmv2] [T] [thread 2249] [13.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:54.475] [bmv2] [T] [thread 2249] [13.0] [cxt 0] Action L3_Ingress.drop
+[10:01:54.475] [bmv2] [T] [thread 2249] [13.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:54.475] [bmv2] [T] [thread 2249] [13.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:54.475] [bmv2] [T] [thread 2249] [13.0] [cxt 0] Action L3_Ingress.drop
+[10:01:54.475] [bmv2] [T] [thread 2249] [13.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Pipeline 'ingress': end
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Egress port is 511
+[10:01:54.475] [bmv2] [D] [thread 2249] [13.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Processing packet received on port 1
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Parser 'parser': start
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Extracting header 'ethernet'
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:54.525] [bmv2] [T] [thread 2249] [14.0] [cxt 0] Bytes parsed: 14
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Parser 'parser': end
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Pipeline 'ingress': start
+[10:01:54.525] [bmv2] [T] [thread 2249] [14.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:54.525] [bmv2] [T] [thread 2249] [14.0] [cxt 0] Action L3_Ingress.drop
+[10:01:54.525] [bmv2] [T] [thread 2249] [14.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:54.525] [bmv2] [T] [thread 2249] [14.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:54.525] [bmv2] [T] [thread 2249] [14.0] [cxt 0] Action L3_Ingress.drop
+[10:01:54.525] [bmv2] [T] [thread 2249] [14.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Pipeline 'ingress': end
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Egress port is 511
+[10:01:54.525] [bmv2] [D] [thread 2249] [14.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:55.392] [bmv2] [W] [thread 2309] [P4Runtime] p4::tmp::P4DeviceConfig is deprecated
+[10:01:55.394] [bmv2] [D] [thread 2309] Set default default entry for table 'L3_Ingress.ipv4_lpm': L3_Ingress.drop - 
+[10:01:55.394] [bmv2] [D] [thread 2309] Set default default entry for table 'L3_Ingress.mac_table': L3_Ingress.drop - 
+[10:01:55.399] [bmv2] [D] [thread 2309] simple_switch target has been notified of a config swap
+[10:01:55.404] [bmv2] [D] [thread 2310] Entry 0 added to table 'L3_Ingress.mac_table'
+[10:01:55.404] [bmv2] [D] [thread 2310] Dumping entry 0
+Match key:
+* meta.dstIp          : EXACT     c0a80101
+Action entry: L3_Ingress.forward - 100000000000,
+
+[10:01:55.408] [bmv2] [D] [thread 2309] Entry 1 added to table 'L3_Ingress.mac_table'
+[10:01:55.408] [bmv2] [D] [thread 2309] Dumping entry 1
+Match key:
+* meta.dstIp          : EXACT     c0a80102
+Action entry: L3_Ingress.forward - 100,
+
+[10:01:55.411] [bmv2] [D] [thread 2310] Entry 2 added to table 'L3_Ingress.mac_table'
+[10:01:55.411] [bmv2] [D] [thread 2310] Dumping entry 2
+Match key:
+* meta.dstIp          : EXACT     c0a80103
+Action entry: L3_Ingress.forward - 200,
+
+[10:01:55.415] [bmv2] [D] [thread 2309] Entry 3 added to table 'L3_Ingress.mac_table'
+[10:01:55.415] [bmv2] [D] [thread 2309] Dumping entry 3
+Match key:
+* meta.dstIp          : EXACT     0a000001
+Action entry: L3_Ingress.forward - 200000000000,
+
+[10:01:55.420] [bmv2] [D] [thread 2310] Entry 4 added to table 'L3_Ingress.mac_table'
+[10:01:55.420] [bmv2] [D] [thread 2310] Dumping entry 4
+Match key:
+* meta.dstIp          : EXACT     0a000002
+Action entry: L3_Ingress.forward - 300,
+
+[10:01:55.424] [bmv2] [D] [thread 2309] Entry 5 added to table 'L3_Ingress.mac_table'
+[10:01:55.424] [bmv2] [D] [thread 2309] Dumping entry 5
+Match key:
+* meta.dstIp          : EXACT     0a000003
+Action entry: L3_Ingress.forward - 400,
+
+[10:01:55.427] [bmv2] [D] [thread 2310] Set default entry for table 'L3_Ingress.ipv4_lpm': L3_Ingress.drop - 
+[10:01:55.433] [bmv2] [D] [thread 2309] Entry 0 added to table 'L3_Ingress.ipv4_lpm'
+[10:01:55.433] [bmv2] [D] [thread 2309] Dumping entry 0
+Match key:
+* meta.dstIp          : LPM       c0a80100/24
+Action entry: L3_Ingress.set_dst_egress - 1,
+
+[10:01:55.438] [bmv2] [D] [thread 2310] Entry 1 added to table 'L3_Ingress.ipv4_lpm'
+[10:01:55.438] [bmv2] [D] [thread 2310] Dumping entry 1
+Match key:
+* meta.dstIp          : LPM       0a000000/24
+Action entry: L3_Ingress.set_dst_egress - 2,
+
+[10:01:57.675] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Processing packet received on port 2
+[10:01:57.675] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Parser 'parser': start
+[10:01:57.675] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:57.675] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Extracting header 'ethernet'
+[10:01:57.676] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:57.676] [bmv2] [T] [thread 2249] [15.0] [cxt 0] Bytes parsed: 14
+[10:01:57.676] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Parser 'parser': end
+[10:01:57.676] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Pipeline 'ingress': start
+[10:01:57.676] [bmv2] [T] [thread 2249] [15.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:57.676] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:57.676] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:57.676] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:57.676] [bmv2] [T] [thread 2249] [15.0] [cxt 0] Action L3_Ingress.drop
+[10:01:57.676] [bmv2] [T] [thread 2249] [15.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:57.676] [bmv2] [T] [thread 2249] [15.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:57.676] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:57.676] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:57.676] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:57.676] [bmv2] [T] [thread 2249] [15.0] [cxt 0] Action L3_Ingress.drop
+[10:01:57.676] [bmv2] [T] [thread 2249] [15.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:57.676] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Pipeline 'ingress': end
+[10:01:57.676] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Egress port is 511
+[10:01:57.676] [bmv2] [D] [thread 2249] [15.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Processing packet received on port 2
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Parser 'parser': start
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Extracting header 'ethernet'
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:57.756] [bmv2] [T] [thread 2249] [16.0] [cxt 0] Bytes parsed: 14
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Parser 'parser': end
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Pipeline 'ingress': start
+[10:01:57.756] [bmv2] [T] [thread 2249] [16.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:57.756] [bmv2] [T] [thread 2249] [16.0] [cxt 0] Action L3_Ingress.drop
+[10:01:57.756] [bmv2] [T] [thread 2249] [16.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:57.756] [bmv2] [T] [thread 2249] [16.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:57.756] [bmv2] [T] [thread 2249] [16.0] [cxt 0] Action L3_Ingress.drop
+[10:01:57.756] [bmv2] [T] [thread 2249] [16.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Pipeline 'ingress': end
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Egress port is 511
+[10:01:57.756] [bmv2] [D] [thread 2249] [16.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:57.836] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Processing packet received on port 2
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Parser 'parser': start
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Extracting header 'ethernet'
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:57.837] [bmv2] [T] [thread 2249] [17.0] [cxt 0] Bytes parsed: 14
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Parser 'parser': end
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Pipeline 'ingress': start
+[10:01:57.837] [bmv2] [T] [thread 2249] [17.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:57.837] [bmv2] [T] [thread 2249] [17.0] [cxt 0] Action L3_Ingress.drop
+[10:01:57.837] [bmv2] [T] [thread 2249] [17.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:57.837] [bmv2] [T] [thread 2249] [17.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:57.837] [bmv2] [T] [thread 2249] [17.0] [cxt 0] Action L3_Ingress.drop
+[10:01:57.837] [bmv2] [T] [thread 2249] [17.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Pipeline 'ingress': end
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Egress port is 511
+[10:01:57.837] [bmv2] [D] [thread 2249] [17.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Processing packet received on port 2
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Parser 'parser': start
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Extracting header 'ethernet'
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:57.917] [bmv2] [T] [thread 2249] [18.0] [cxt 0] Bytes parsed: 14
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Parser 'parser': end
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Pipeline 'ingress': start
+[10:01:57.917] [bmv2] [T] [thread 2249] [18.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:57.917] [bmv2] [T] [thread 2249] [18.0] [cxt 0] Action L3_Ingress.drop
+[10:01:57.917] [bmv2] [T] [thread 2249] [18.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:57.917] [bmv2] [T] [thread 2249] [18.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:57.917] [bmv2] [T] [thread 2249] [18.0] [cxt 0] Action L3_Ingress.drop
+[10:01:57.917] [bmv2] [T] [thread 2249] [18.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Pipeline 'ingress': end
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Egress port is 511
+[10:01:57.917] [bmv2] [D] [thread 2249] [18.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Processing packet received on port 1
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Parser 'parser': start
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:58.075] [bmv2] [T] [thread 2249] [19.0] [cxt 0] Bytes parsed: 14
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Parser 'parser': end
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.075] [bmv2] [T] [thread 2249] [19.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:58.075] [bmv2] [T] [thread 2249] [19.0] [cxt 0] Action L3_Ingress.drop
+[10:01:58.075] [bmv2] [T] [thread 2249] [19.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:58.075] [bmv2] [T] [thread 2249] [19.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:58.075] [bmv2] [T] [thread 2249] [19.0] [cxt 0] Action L3_Ingress.drop
+[10:01:58.075] [bmv2] [T] [thread 2249] [19.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Egress port is 511
+[10:01:58.075] [bmv2] [D] [thread 2249] [19.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Processing packet received on port 1
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Parser 'parser': start
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:58.155] [bmv2] [T] [thread 2249] [20.0] [cxt 0] Bytes parsed: 14
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Parser 'parser': end
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.155] [bmv2] [T] [thread 2249] [20.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:58.155] [bmv2] [T] [thread 2249] [20.0] [cxt 0] Action L3_Ingress.drop
+[10:01:58.155] [bmv2] [T] [thread 2249] [20.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:58.155] [bmv2] [T] [thread 2249] [20.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:58.155] [bmv2] [T] [thread 2249] [20.0] [cxt 0] Action L3_Ingress.drop
+[10:01:58.155] [bmv2] [T] [thread 2249] [20.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Egress port is 511
+[10:01:58.155] [bmv2] [D] [thread 2249] [20.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Processing packet received on port 1
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Parser 'parser': start
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:58.158] [bmv2] [T] [thread 2249] [21.0] [cxt 0] Bytes parsed: 14
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Parser 'parser': end
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.158] [bmv2] [T] [thread 2249] [21.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:58.158] [bmv2] [T] [thread 2249] [21.0] [cxt 0] Action L3_Ingress.drop
+[10:01:58.158] [bmv2] [T] [thread 2249] [21.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:58.158] [bmv2] [T] [thread 2249] [21.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:58.158] [bmv2] [T] [thread 2249] [21.0] [cxt 0] Action L3_Ingress.drop
+[10:01:58.158] [bmv2] [T] [thread 2249] [21.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Egress port is 511
+[10:01:58.158] [bmv2] [D] [thread 2249] [21.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Processing packet received on port 1
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Parser 'parser': start
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Parser state 'start': key is 86dd
+[10:01:58.556] [bmv2] [T] [thread 2249] [22.0] [cxt 0] Bytes parsed: 14
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Parser 'parser': end
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.556] [bmv2] [T] [thread 2249] [22.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': miss
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:58.556] [bmv2] [T] [thread 2249] [22.0] [cxt 0] Action L3_Ingress.drop
+[10:01:58.556] [bmv2] [T] [thread 2249] [22.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:58.556] [bmv2] [T] [thread 2249] [22.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Looking up key:
+* meta.dstIp          : 00000000
+
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Table 'L3_Ingress.mac_table': miss
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Action entry is L3_Ingress.drop - 
+[10:01:58.556] [bmv2] [T] [thread 2249] [22.0] [cxt 0] Action L3_Ingress.drop
+[10:01:58.556] [bmv2] [T] [thread 2249] [22.0] [cxt 0] l3.p4(97) Primitive mark_to_drop(standard_metadata)
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Egress port is 511
+[10:01:58.556] [bmv2] [D] [thread 2249] [22.0] [cxt 0] Dropping packet at the end of ingress
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Processing packet received on port 1
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Parser 'parser': start
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Parser state 'start': key is 0806
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Bytes parsed: 14
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Parser 'parser' entering state 'parse_arp'
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Extracting header 'arp'
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'arp.targetIpAddr' (3232235779)
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Parser state 'parse_arp' has no switch, going to default next state
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Bytes parsed: 42
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Parser 'parser': end
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80103
+
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 0
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Dumping entry 0
+Match key:
+* meta.dstIp          : LPM       c0a80100/24
+Action entry: L3_Ingress.set_dst_egress - 1,
+
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 1,
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80103
+
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 2
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Dumping entry 2
+Match key:
+* meta.dstIp          : EXACT     c0a80103
+Action entry: L3_Ingress.forward - 200,
+
+[10:01:58.836] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Action entry is L3_Ingress.forward - 200,
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Primitive (no source info)
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Primitive (no source info)
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Primitive (no source info)
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Primitive (no source info)
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Primitive (no source info)
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Primitive (no source info)
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Primitive (no source info)
+[10:01:58.836] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Primitive (no source info)
+[10:01:58.837] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Primitive (no source info)
+[10:01:58.837] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Primitive (no source info)
+[10:01:58.837] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Primitive (no source info)
+[10:01:58.837] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Primitive (no source info)
+[10:01:58.837] [bmv2] [T] [thread 2249] [23.0] [cxt 0] Primitive (no source info)
+[10:01:58.837] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.837] [bmv2] [D] [thread 2249] [23.0] [cxt 0] Egress port is 1
+[10:01:58.837] [bmv2] [D] [thread 2251] [23.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.837] [bmv2] [D] [thread 2251] [23.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.837] [bmv2] [D] [thread 2251] [23.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.837] [bmv2] [T] [thread 2251] [23.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[10:01:58.837] [bmv2] [D] [thread 2251] [23.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.837] [bmv2] [D] [thread 2251] [23.0] [cxt 0] Deparsing header 'arp'
+[10:01:58.837] [bmv2] [D] [thread 2251] [23.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.837] [bmv2] [D] [thread 2254] [23.0] [cxt 0] Transmitting packet of size 42 out of port 1
+[10:01:58.845] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Processing packet received on port 1
+[10:01:58.845] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Parser 'parser': start
+[10:01:58.845] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.845] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.845] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Parser state 'start': key is 0806
+[10:01:58.845] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Bytes parsed: 14
+[10:01:58.845] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Parser 'parser' entering state 'parse_arp'
+[10:01:58.845] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Extracting header 'arp'
+[10:01:58.845] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'arp.targetIpAddr' (3232235777)
+[10:01:58.845] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Parser state 'parse_arp' has no switch, going to default next state
+[10:01:58.845] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Bytes parsed: 42
+[10:01:58.845] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Parser 'parser': end
+[10:01:58.845] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.845] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.845] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80101
+
+[10:01:58.845] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 0
+[10:01:58.846] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Dumping entry 0
+Match key:
+* meta.dstIp          : LPM       c0a80100/24
+Action entry: L3_Ingress.set_dst_egress - 1,
+
+[10:01:58.846] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 1,
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.846] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80101
+
+[10:01:58.846] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 0
+[10:01:58.846] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Dumping entry 0
+Match key:
+* meta.dstIp          : EXACT     c0a80101
+Action entry: L3_Ingress.forward - 100000000000,
+
+[10:01:58.846] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Action entry is L3_Ingress.forward - 100000000000,
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Primitive (no source info)
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Primitive (no source info)
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Primitive (no source info)
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Primitive (no source info)
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Primitive (no source info)
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Primitive (no source info)
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Primitive (no source info)
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Primitive (no source info)
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Primitive (no source info)
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Primitive (no source info)
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Primitive (no source info)
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Primitive (no source info)
+[10:01:58.846] [bmv2] [T] [thread 2249] [24.0] [cxt 0] Primitive (no source info)
+[10:01:58.846] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.846] [bmv2] [D] [thread 2249] [24.0] [cxt 0] Egress port is 1
+[10:01:58.846] [bmv2] [D] [thread 2251] [24.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.846] [bmv2] [D] [thread 2251] [24.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.846] [bmv2] [D] [thread 2251] [24.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.846] [bmv2] [T] [thread 2251] [24.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[10:01:58.846] [bmv2] [D] [thread 2251] [24.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.846] [bmv2] [D] [thread 2251] [24.0] [cxt 0] Deparsing header 'arp'
+[10:01:58.846] [bmv2] [D] [thread 2251] [24.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.846] [bmv2] [D] [thread 2254] [24.0] [cxt 0] Transmitting packet of size 42 out of port 1
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Processing packet received on port 1
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Parser 'parser': start
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.847] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Bytes parsed: 14
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (167772162)
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.847] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Bytes parsed: 34
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Parser 'parser': end
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.847] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000002
+
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 1
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : LPM       0a000000/24
+Action entry: L3_Ingress.set_dst_egress - 2,
+
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 2,
+[10:01:58.847] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.847] [bmv2] [T] [thread 2249] [25.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.847] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.847] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000002
+
+[10:01:58.848] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 4
+[10:01:58.848] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Dumping entry 4
+Match key:
+* meta.dstIp          : EXACT     0a000002
+Action entry: L3_Ingress.forward - 300,
+
+[10:01:58.848] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Action entry is L3_Ingress.forward - 300,
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Primitive (no source info)
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Primitive (no source info)
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Primitive (no source info)
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Primitive (no source info)
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Primitive (no source info)
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Primitive (no source info)
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Primitive (no source info)
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Primitive (no source info)
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Primitive (no source info)
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Primitive (no source info)
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Primitive (no source info)
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Primitive (no source info)
+[10:01:58.848] [bmv2] [T] [thread 2249] [25.0] [cxt 0] Primitive (no source info)
+[10:01:58.848] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.848] [bmv2] [D] [thread 2249] [25.0] [cxt 0] Egress port is 2
+[10:01:58.848] [bmv2] [D] [thread 2252] [25.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.848] [bmv2] [D] [thread 2252] [25.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.848] [bmv2] [D] [thread 2252] [25.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.848] [bmv2] [D] [thread 2252] [25.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.848] [bmv2] [D] [thread 2252] [25.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.848] [bmv2] [D] [thread 2252] [25.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.848] [bmv2] [D] [thread 2252] [25.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.848] [bmv2] [D] [thread 2254] [25.0] [cxt 0] Transmitting packet of size 98 out of port 2
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Processing packet received on port 2
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Parser 'parser': start
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Parser state 'start': key is 0806
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Bytes parsed: 14
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Parser 'parser' entering state 'parse_arp'
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Extracting header 'arp'
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'arp.targetIpAddr' (167772161)
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Parser state 'parse_arp' has no switch, going to default next state
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Bytes parsed: 42
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Parser 'parser': end
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000001
+
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 1
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : LPM       0a000000/24
+Action entry: L3_Ingress.set_dst_egress - 2,
+
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 2,
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000001
+
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 3
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Dumping entry 3
+Match key:
+* meta.dstIp          : EXACT     0a000001
+Action entry: L3_Ingress.forward - 200000000000,
+
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Action entry is L3_Ingress.forward - 200000000000,
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Primitive (no source info)
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Primitive (no source info)
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Primitive (no source info)
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Primitive (no source info)
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Primitive (no source info)
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Primitive (no source info)
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Primitive (no source info)
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Primitive (no source info)
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Primitive (no source info)
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Primitive (no source info)
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Primitive (no source info)
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Primitive (no source info)
+[10:01:58.851] [bmv2] [T] [thread 2249] [26.0] [cxt 0] Primitive (no source info)
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.851] [bmv2] [D] [thread 2249] [26.0] [cxt 0] Egress port is 2
+[10:01:58.851] [bmv2] [D] [thread 2252] [26.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.851] [bmv2] [D] [thread 2252] [26.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.851] [bmv2] [D] [thread 2252] [26.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.851] [bmv2] [T] [thread 2252] [26.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[10:01:58.851] [bmv2] [D] [thread 2252] [26.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.851] [bmv2] [D] [thread 2252] [26.0] [cxt 0] Deparsing header 'arp'
+[10:01:58.851] [bmv2] [D] [thread 2252] [26.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.852] [bmv2] [D] [thread 2254] [26.0] [cxt 0] Transmitting packet of size 42 out of port 2
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Processing packet received on port 2
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Parser 'parser': start
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Bytes parsed: 14
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (3232235778)
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Bytes parsed: 34
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Parser 'parser': end
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80102
+
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 0
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Dumping entry 0
+Match key:
+* meta.dstIp          : LPM       c0a80100/24
+Action entry: L3_Ingress.set_dst_egress - 1,
+
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 1,
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80102
+
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 1
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : EXACT     c0a80102
+Action entry: L3_Ingress.forward - 100,
+
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Action entry is L3_Ingress.forward - 100,
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Primitive (no source info)
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Primitive (no source info)
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Primitive (no source info)
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Primitive (no source info)
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Primitive (no source info)
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Primitive (no source info)
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Primitive (no source info)
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Primitive (no source info)
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Primitive (no source info)
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Primitive (no source info)
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Primitive (no source info)
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Primitive (no source info)
+[10:01:58.854] [bmv2] [T] [thread 2249] [27.0] [cxt 0] Primitive (no source info)
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.854] [bmv2] [D] [thread 2249] [27.0] [cxt 0] Egress port is 1
+[10:01:58.854] [bmv2] [D] [thread 2251] [27.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.854] [bmv2] [D] [thread 2251] [27.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.854] [bmv2] [D] [thread 2251] [27.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.854] [bmv2] [D] [thread 2251] [27.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.854] [bmv2] [D] [thread 2251] [27.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.854] [bmv2] [D] [thread 2251] [27.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.854] [bmv2] [D] [thread 2251] [27.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.854] [bmv2] [D] [thread 2254] [27.0] [cxt 0] Transmitting packet of size 98 out of port 1
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Processing packet received on port 1
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Parser 'parser': start
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Bytes parsed: 14
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (167772163)
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Bytes parsed: 34
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Parser 'parser': end
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000003
+
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 1
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : LPM       0a000000/24
+Action entry: L3_Ingress.set_dst_egress - 2,
+
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 2,
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000003
+
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 5
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Dumping entry 5
+Match key:
+* meta.dstIp          : EXACT     0a000003
+Action entry: L3_Ingress.forward - 400,
+
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Action entry is L3_Ingress.forward - 400,
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Primitive (no source info)
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Primitive (no source info)
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Primitive (no source info)
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Primitive (no source info)
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Primitive (no source info)
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Primitive (no source info)
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Primitive (no source info)
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Primitive (no source info)
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Primitive (no source info)
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Primitive (no source info)
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Primitive (no source info)
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Primitive (no source info)
+[10:01:58.860] [bmv2] [T] [thread 2249] [28.0] [cxt 0] Primitive (no source info)
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.860] [bmv2] [D] [thread 2249] [28.0] [cxt 0] Egress port is 2
+[10:01:58.861] [bmv2] [D] [thread 2252] [28.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.861] [bmv2] [D] [thread 2252] [28.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.861] [bmv2] [D] [thread 2252] [28.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.861] [bmv2] [D] [thread 2252] [28.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.861] [bmv2] [D] [thread 2252] [28.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.861] [bmv2] [D] [thread 2252] [28.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.861] [bmv2] [D] [thread 2252] [28.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.861] [bmv2] [D] [thread 2254] [28.0] [cxt 0] Transmitting packet of size 98 out of port 2
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Processing packet received on port 2
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Parser 'parser': start
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Parser state 'start': key is 0806
+[10:01:58.866] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Bytes parsed: 14
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Parser 'parser' entering state 'parse_arp'
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Extracting header 'arp'
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'arp.targetIpAddr' (167772161)
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Parser state 'parse_arp' has no switch, going to default next state
+[10:01:58.866] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Bytes parsed: 42
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Parser 'parser': end
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.866] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000001
+
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 1
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : LPM       0a000000/24
+Action entry: L3_Ingress.set_dst_egress - 2,
+
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 2,
+[10:01:58.866] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.866] [bmv2] [T] [thread 2249] [29.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.866] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000001
+
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 3
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Dumping entry 3
+Match key:
+* meta.dstIp          : EXACT     0a000001
+Action entry: L3_Ingress.forward - 200000000000,
+
+[10:01:58.866] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Action entry is L3_Ingress.forward - 200000000000,
+[10:01:58.866] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.866] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Primitive (no source info)
+[10:01:58.866] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Primitive (no source info)
+[10:01:58.866] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Primitive (no source info)
+[10:01:58.866] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Primitive (no source info)
+[10:01:58.866] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Primitive (no source info)
+[10:01:58.867] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Primitive (no source info)
+[10:01:58.867] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Primitive (no source info)
+[10:01:58.867] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Primitive (no source info)
+[10:01:58.867] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Primitive (no source info)
+[10:01:58.867] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Primitive (no source info)
+[10:01:58.867] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Primitive (no source info)
+[10:01:58.867] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Primitive (no source info)
+[10:01:58.867] [bmv2] [T] [thread 2249] [29.0] [cxt 0] Primitive (no source info)
+[10:01:58.867] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.867] [bmv2] [D] [thread 2249] [29.0] [cxt 0] Egress port is 2
+[10:01:58.867] [bmv2] [D] [thread 2252] [29.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.867] [bmv2] [D] [thread 2252] [29.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.867] [bmv2] [D] [thread 2252] [29.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.867] [bmv2] [T] [thread 2252] [29.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[10:01:58.867] [bmv2] [D] [thread 2252] [29.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.867] [bmv2] [D] [thread 2252] [29.0] [cxt 0] Deparsing header 'arp'
+[10:01:58.867] [bmv2] [D] [thread 2252] [29.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.867] [bmv2] [D] [thread 2254] [29.0] [cxt 0] Transmitting packet of size 42 out of port 2
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Processing packet received on port 2
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Parser 'parser': start
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Bytes parsed: 14
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (3232235778)
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Bytes parsed: 34
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Parser 'parser': end
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80102
+
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 0
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Dumping entry 0
+Match key:
+* meta.dstIp          : LPM       c0a80100/24
+Action entry: L3_Ingress.set_dst_egress - 1,
+
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 1,
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80102
+
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 1
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : EXACT     c0a80102
+Action entry: L3_Ingress.forward - 100,
+
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Action entry is L3_Ingress.forward - 100,
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Primitive (no source info)
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Primitive (no source info)
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Primitive (no source info)
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Primitive (no source info)
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Primitive (no source info)
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Primitive (no source info)
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Primitive (no source info)
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Primitive (no source info)
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Primitive (no source info)
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Primitive (no source info)
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Primitive (no source info)
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Primitive (no source info)
+[10:01:58.869] [bmv2] [T] [thread 2249] [30.0] [cxt 0] Primitive (no source info)
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.869] [bmv2] [D] [thread 2249] [30.0] [cxt 0] Egress port is 1
+[10:01:58.869] [bmv2] [D] [thread 2251] [30.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.869] [bmv2] [D] [thread 2251] [30.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.869] [bmv2] [D] [thread 2251] [30.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.869] [bmv2] [D] [thread 2251] [30.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.869] [bmv2] [D] [thread 2251] [30.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.869] [bmv2] [D] [thread 2251] [30.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.869] [bmv2] [D] [thread 2251] [30.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.870] [bmv2] [D] [thread 2254] [30.0] [cxt 0] Transmitting packet of size 98 out of port 1
+[10:01:58.886] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Processing packet received on port 1
+[10:01:58.886] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Parser 'parser': start
+[10:01:58.886] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.886] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Parser state 'start': key is 0806
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Bytes parsed: 14
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Parser 'parser' entering state 'parse_arp'
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Extracting header 'arp'
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'arp.targetIpAddr' (3232235777)
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Parser state 'parse_arp' has no switch, going to default next state
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Bytes parsed: 42
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Parser 'parser': end
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80101
+
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 0
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Dumping entry 0
+Match key:
+* meta.dstIp          : LPM       c0a80100/24
+Action entry: L3_Ingress.set_dst_egress - 1,
+
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 1,
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80101
+
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 0
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Dumping entry 0
+Match key:
+* meta.dstIp          : EXACT     c0a80101
+Action entry: L3_Ingress.forward - 100000000000,
+
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Action entry is L3_Ingress.forward - 100000000000,
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Primitive (no source info)
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Primitive (no source info)
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Primitive (no source info)
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Primitive (no source info)
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Primitive (no source info)
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Primitive (no source info)
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Primitive (no source info)
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Primitive (no source info)
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Primitive (no source info)
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Primitive (no source info)
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Primitive (no source info)
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Primitive (no source info)
+[10:01:58.887] [bmv2] [T] [thread 2249] [31.0] [cxt 0] Primitive (no source info)
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.887] [bmv2] [D] [thread 2249] [31.0] [cxt 0] Egress port is 1
+[10:01:58.887] [bmv2] [D] [thread 2251] [31.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.887] [bmv2] [D] [thread 2251] [31.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.887] [bmv2] [D] [thread 2251] [31.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.887] [bmv2] [T] [thread 2251] [31.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[10:01:58.887] [bmv2] [D] [thread 2251] [31.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.887] [bmv2] [D] [thread 2251] [31.0] [cxt 0] Deparsing header 'arp'
+[10:01:58.887] [bmv2] [D] [thread 2251] [31.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.887] [bmv2] [D] [thread 2254] [31.0] [cxt 0] Transmitting packet of size 42 out of port 1
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Processing packet received on port 1
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Parser 'parser': start
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Bytes parsed: 14
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (167772162)
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Bytes parsed: 34
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Parser 'parser': end
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000002
+
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 1
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : LPM       0a000000/24
+Action entry: L3_Ingress.set_dst_egress - 2,
+
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 2,
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000002
+
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 4
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Dumping entry 4
+Match key:
+* meta.dstIp          : EXACT     0a000002
+Action entry: L3_Ingress.forward - 300,
+
+[10:01:58.889] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Action entry is L3_Ingress.forward - 300,
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Primitive (no source info)
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Primitive (no source info)
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Primitive (no source info)
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Primitive (no source info)
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Primitive (no source info)
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Primitive (no source info)
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Primitive (no source info)
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Primitive (no source info)
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Primitive (no source info)
+[10:01:58.889] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Primitive (no source info)
+[10:01:58.890] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Primitive (no source info)
+[10:01:58.890] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Primitive (no source info)
+[10:01:58.890] [bmv2] [T] [thread 2249] [32.0] [cxt 0] Primitive (no source info)
+[10:01:58.890] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.890] [bmv2] [D] [thread 2249] [32.0] [cxt 0] Egress port is 2
+[10:01:58.890] [bmv2] [D] [thread 2252] [32.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.890] [bmv2] [D] [thread 2252] [32.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.890] [bmv2] [D] [thread 2252] [32.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.890] [bmv2] [D] [thread 2252] [32.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.890] [bmv2] [D] [thread 2252] [32.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.890] [bmv2] [D] [thread 2252] [32.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.890] [bmv2] [D] [thread 2252] [32.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.890] [bmv2] [D] [thread 2254] [32.0] [cxt 0] Transmitting packet of size 98 out of port 2
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Processing packet received on port 2
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Parser 'parser': start
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Bytes parsed: 14
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (3232235779)
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Bytes parsed: 34
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Parser 'parser': end
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80103
+
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 0
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Dumping entry 0
+Match key:
+* meta.dstIp          : LPM       c0a80100/24
+Action entry: L3_Ingress.set_dst_egress - 1,
+
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 1,
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80103
+
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 2
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Dumping entry 2
+Match key:
+* meta.dstIp          : EXACT     c0a80103
+Action entry: L3_Ingress.forward - 200,
+
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Action entry is L3_Ingress.forward - 200,
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Primitive (no source info)
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Primitive (no source info)
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Primitive (no source info)
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Primitive (no source info)
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Primitive (no source info)
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Primitive (no source info)
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Primitive (no source info)
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Primitive (no source info)
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Primitive (no source info)
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Primitive (no source info)
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Primitive (no source info)
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Primitive (no source info)
+[10:01:58.893] [bmv2] [T] [thread 2249] [33.0] [cxt 0] Primitive (no source info)
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.893] [bmv2] [D] [thread 2249] [33.0] [cxt 0] Egress port is 1
+[10:01:58.893] [bmv2] [D] [thread 2251] [33.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.893] [bmv2] [D] [thread 2251] [33.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.893] [bmv2] [D] [thread 2251] [33.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.893] [bmv2] [D] [thread 2251] [33.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.893] [bmv2] [D] [thread 2251] [33.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.893] [bmv2] [D] [thread 2251] [33.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.893] [bmv2] [D] [thread 2251] [33.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.893] [bmv2] [D] [thread 2254] [33.0] [cxt 0] Transmitting packet of size 98 out of port 1
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Processing packet received on port 1
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Parser 'parser': start
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Bytes parsed: 14
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (167772163)
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Bytes parsed: 34
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Parser 'parser': end
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000003
+
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 1
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : LPM       0a000000/24
+Action entry: L3_Ingress.set_dst_egress - 2,
+
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 2,
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000003
+
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 5
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Dumping entry 5
+Match key:
+* meta.dstIp          : EXACT     0a000003
+Action entry: L3_Ingress.forward - 400,
+
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Action entry is L3_Ingress.forward - 400,
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Primitive (no source info)
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Primitive (no source info)
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Primitive (no source info)
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Primitive (no source info)
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Primitive (no source info)
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Primitive (no source info)
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Primitive (no source info)
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Primitive (no source info)
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Primitive (no source info)
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Primitive (no source info)
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Primitive (no source info)
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Primitive (no source info)
+[10:01:58.903] [bmv2] [T] [thread 2249] [34.0] [cxt 0] Primitive (no source info)
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.903] [bmv2] [D] [thread 2249] [34.0] [cxt 0] Egress port is 2
+[10:01:58.903] [bmv2] [D] [thread 2252] [34.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.903] [bmv2] [D] [thread 2252] [34.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.903] [bmv2] [D] [thread 2252] [34.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.903] [bmv2] [D] [thread 2252] [34.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.904] [bmv2] [D] [thread 2252] [34.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.904] [bmv2] [D] [thread 2252] [34.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.904] [bmv2] [D] [thread 2252] [34.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.904] [bmv2] [D] [thread 2254] [34.0] [cxt 0] Transmitting packet of size 98 out of port 2
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Processing packet received on port 2
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Parser 'parser': start
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.906] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Bytes parsed: 14
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (3232235779)
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.906] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Bytes parsed: 34
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Parser 'parser': end
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.906] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80103
+
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 0
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Dumping entry 0
+Match key:
+* meta.dstIp          : LPM       c0a80100/24
+Action entry: L3_Ingress.set_dst_egress - 1,
+
+[10:01:58.906] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 1,
+[10:01:58.906] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.906] [bmv2] [T] [thread 2249] [35.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.907] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80103
+
+[10:01:58.907] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 2
+[10:01:58.907] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Dumping entry 2
+Match key:
+* meta.dstIp          : EXACT     c0a80103
+Action entry: L3_Ingress.forward - 200,
+
+[10:01:58.907] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Action entry is L3_Ingress.forward - 200,
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Primitive (no source info)
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Primitive (no source info)
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Primitive (no source info)
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Primitive (no source info)
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Primitive (no source info)
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Primitive (no source info)
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Primitive (no source info)
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Primitive (no source info)
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Primitive (no source info)
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Primitive (no source info)
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Primitive (no source info)
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Primitive (no source info)
+[10:01:58.907] [bmv2] [T] [thread 2249] [35.0] [cxt 0] Primitive (no source info)
+[10:01:58.907] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.907] [bmv2] [D] [thread 2249] [35.0] [cxt 0] Egress port is 1
+[10:01:58.907] [bmv2] [D] [thread 2251] [35.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.907] [bmv2] [D] [thread 2251] [35.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.907] [bmv2] [D] [thread 2251] [35.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.907] [bmv2] [D] [thread 2251] [35.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.907] [bmv2] [D] [thread 2251] [35.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.907] [bmv2] [D] [thread 2251] [35.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.907] [bmv2] [D] [thread 2251] [35.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.907] [bmv2] [D] [thread 2254] [35.0] [cxt 0] Transmitting packet of size 98 out of port 1
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Processing packet received on port 2
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Parser 'parser': start
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Bytes parsed: 14
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (3232235778)
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Bytes parsed: 34
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Parser 'parser': end
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80102
+
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 0
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Dumping entry 0
+Match key:
+* meta.dstIp          : LPM       c0a80100/24
+Action entry: L3_Ingress.set_dst_egress - 1,
+
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 1,
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80102
+
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 1
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : EXACT     c0a80102
+Action entry: L3_Ingress.forward - 100,
+
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Action entry is L3_Ingress.forward - 100,
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Primitive (no source info)
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Primitive (no source info)
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Primitive (no source info)
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Primitive (no source info)
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Primitive (no source info)
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Primitive (no source info)
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Primitive (no source info)
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Primitive (no source info)
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Primitive (no source info)
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Primitive (no source info)
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Primitive (no source info)
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Primitive (no source info)
+[10:01:58.914] [bmv2] [T] [thread 2249] [36.0] [cxt 0] Primitive (no source info)
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.914] [bmv2] [D] [thread 2249] [36.0] [cxt 0] Egress port is 1
+[10:01:58.914] [bmv2] [D] [thread 2251] [36.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.914] [bmv2] [D] [thread 2251] [36.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.914] [bmv2] [D] [thread 2251] [36.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.914] [bmv2] [D] [thread 2251] [36.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.914] [bmv2] [D] [thread 2251] [36.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.914] [bmv2] [D] [thread 2251] [36.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.914] [bmv2] [D] [thread 2251] [36.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.914] [bmv2] [D] [thread 2254] [36.0] [cxt 0] Transmitting packet of size 98 out of port 1
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Processing packet received on port 1
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Parser 'parser': start
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Bytes parsed: 14
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (167772162)
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Bytes parsed: 34
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Parser 'parser': end
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000002
+
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 1
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : LPM       0a000000/24
+Action entry: L3_Ingress.set_dst_egress - 2,
+
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 2,
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000002
+
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 4
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Dumping entry 4
+Match key:
+* meta.dstIp          : EXACT     0a000002
+Action entry: L3_Ingress.forward - 300,
+
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Action entry is L3_Ingress.forward - 300,
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Primitive (no source info)
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Primitive (no source info)
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Primitive (no source info)
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Primitive (no source info)
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Primitive (no source info)
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Primitive (no source info)
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Primitive (no source info)
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Primitive (no source info)
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Primitive (no source info)
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Primitive (no source info)
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Primitive (no source info)
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Primitive (no source info)
+[10:01:58.917] [bmv2] [T] [thread 2249] [37.0] [cxt 0] Primitive (no source info)
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.917] [bmv2] [D] [thread 2249] [37.0] [cxt 0] Egress port is 2
+[10:01:58.918] [bmv2] [D] [thread 2252] [37.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.918] [bmv2] [D] [thread 2252] [37.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.918] [bmv2] [D] [thread 2252] [37.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.918] [bmv2] [D] [thread 2252] [37.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.918] [bmv2] [D] [thread 2252] [37.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.918] [bmv2] [D] [thread 2252] [37.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.918] [bmv2] [D] [thread 2252] [37.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.918] [bmv2] [D] [thread 2254] [37.0] [cxt 0] Transmitting packet of size 98 out of port 2
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Processing packet received on port 2
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Parser 'parser': start
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Bytes parsed: 14
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (3232235779)
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Bytes parsed: 34
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Parser 'parser': end
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80103
+
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 0
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Dumping entry 0
+Match key:
+* meta.dstIp          : LPM       c0a80100/24
+Action entry: L3_Ingress.set_dst_egress - 1,
+
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 1,
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80103
+
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 2
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Dumping entry 2
+Match key:
+* meta.dstIp          : EXACT     c0a80103
+Action entry: L3_Ingress.forward - 200,
+
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Action entry is L3_Ingress.forward - 200,
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Primitive (no source info)
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Primitive (no source info)
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Primitive (no source info)
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Primitive (no source info)
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Primitive (no source info)
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Primitive (no source info)
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Primitive (no source info)
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Primitive (no source info)
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Primitive (no source info)
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Primitive (no source info)
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Primitive (no source info)
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Primitive (no source info)
+[10:01:58.924] [bmv2] [T] [thread 2249] [38.0] [cxt 0] Primitive (no source info)
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.924] [bmv2] [D] [thread 2249] [38.0] [cxt 0] Egress port is 1
+[10:01:58.924] [bmv2] [D] [thread 2251] [38.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.924] [bmv2] [D] [thread 2251] [38.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.924] [bmv2] [D] [thread 2251] [38.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.924] [bmv2] [D] [thread 2251] [38.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.924] [bmv2] [D] [thread 2251] [38.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.924] [bmv2] [D] [thread 2251] [38.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.924] [bmv2] [D] [thread 2251] [38.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.924] [bmv2] [D] [thread 2254] [38.0] [cxt 0] Transmitting packet of size 98 out of port 1
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Processing packet received on port 1
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Parser 'parser': start
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Bytes parsed: 14
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (167772162)
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Bytes parsed: 34
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Parser 'parser': end
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000002
+
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 1
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : LPM       0a000000/24
+Action entry: L3_Ingress.set_dst_egress - 2,
+
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 2,
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000002
+
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 4
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Dumping entry 4
+Match key:
+* meta.dstIp          : EXACT     0a000002
+Action entry: L3_Ingress.forward - 300,
+
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Action entry is L3_Ingress.forward - 300,
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Primitive (no source info)
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Primitive (no source info)
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Primitive (no source info)
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Primitive (no source info)
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Primitive (no source info)
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Primitive (no source info)
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Primitive (no source info)
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Primitive (no source info)
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Primitive (no source info)
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Primitive (no source info)
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Primitive (no source info)
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Primitive (no source info)
+[10:01:58.927] [bmv2] [T] [thread 2249] [39.0] [cxt 0] Primitive (no source info)
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.927] [bmv2] [D] [thread 2249] [39.0] [cxt 0] Egress port is 2
+[10:01:58.927] [bmv2] [D] [thread 2252] [39.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.927] [bmv2] [D] [thread 2252] [39.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.927] [bmv2] [D] [thread 2252] [39.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.927] [bmv2] [D] [thread 2252] [39.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.927] [bmv2] [D] [thread 2252] [39.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.927] [bmv2] [D] [thread 2252] [39.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.927] [bmv2] [D] [thread 2252] [39.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.927] [bmv2] [D] [thread 2254] [39.0] [cxt 0] Transmitting packet of size 98 out of port 2
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Processing packet received on port 2
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Parser 'parser': start
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Parser state 'start': key is 0806
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Bytes parsed: 14
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Parser 'parser' entering state 'parse_arp'
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Extracting header 'arp'
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'arp.targetIpAddr' (167772163)
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Parser state 'parse_arp' has no switch, going to default next state
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Bytes parsed: 42
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Parser 'parser': end
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000003
+
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 1
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : LPM       0a000000/24
+Action entry: L3_Ingress.set_dst_egress - 2,
+
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 2,
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000003
+
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 5
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Dumping entry 5
+Match key:
+* meta.dstIp          : EXACT     0a000003
+Action entry: L3_Ingress.forward - 400,
+
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Action entry is L3_Ingress.forward - 400,
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Primitive (no source info)
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Primitive (no source info)
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Primitive (no source info)
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Primitive (no source info)
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Primitive (no source info)
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Primitive (no source info)
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Primitive (no source info)
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Primitive (no source info)
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Primitive (no source info)
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Primitive (no source info)
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Primitive (no source info)
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Primitive (no source info)
+[10:01:58.938] [bmv2] [T] [thread 2249] [40.0] [cxt 0] Primitive (no source info)
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.938] [bmv2] [D] [thread 2249] [40.0] [cxt 0] Egress port is 2
+[10:01:58.938] [bmv2] [D] [thread 2252] [40.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.938] [bmv2] [D] [thread 2252] [40.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.938] [bmv2] [D] [thread 2252] [40.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.938] [bmv2] [T] [thread 2252] [40.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[10:01:58.938] [bmv2] [D] [thread 2252] [40.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.938] [bmv2] [D] [thread 2252] [40.0] [cxt 0] Deparsing header 'arp'
+[10:01:58.938] [bmv2] [D] [thread 2252] [40.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.938] [bmv2] [D] [thread 2254] [40.0] [cxt 0] Transmitting packet of size 42 out of port 2
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Processing packet received on port 2
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Parser 'parser': start
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Bytes parsed: 14
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (3232235778)
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Bytes parsed: 34
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Parser 'parser': end
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80102
+
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 0
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Dumping entry 0
+Match key:
+* meta.dstIp          : LPM       c0a80100/24
+Action entry: L3_Ingress.set_dst_egress - 1,
+
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 1,
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80102
+
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 1
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : EXACT     c0a80102
+Action entry: L3_Ingress.forward - 100,
+
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Action entry is L3_Ingress.forward - 100,
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Primitive (no source info)
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Primitive (no source info)
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Primitive (no source info)
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Primitive (no source info)
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Primitive (no source info)
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Primitive (no source info)
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Primitive (no source info)
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Primitive (no source info)
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Primitive (no source info)
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Primitive (no source info)
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Primitive (no source info)
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Primitive (no source info)
+[10:01:58.947] [bmv2] [T] [thread 2249] [41.0] [cxt 0] Primitive (no source info)
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.947] [bmv2] [D] [thread 2249] [41.0] [cxt 0] Egress port is 1
+[10:01:58.947] [bmv2] [D] [thread 2251] [41.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.947] [bmv2] [D] [thread 2251] [41.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.947] [bmv2] [D] [thread 2251] [41.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.947] [bmv2] [D] [thread 2251] [41.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.947] [bmv2] [D] [thread 2251] [41.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.947] [bmv2] [D] [thread 2251] [41.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.947] [bmv2] [D] [thread 2251] [41.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.947] [bmv2] [D] [thread 2254] [41.0] [cxt 0] Transmitting packet of size 98 out of port 1
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Processing packet received on port 1
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Parser 'parser': start
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.949] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Bytes parsed: 14
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (167772163)
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.949] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Bytes parsed: 34
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Parser 'parser': end
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.949] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000003
+
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 1
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : LPM       0a000000/24
+Action entry: L3_Ingress.set_dst_egress - 2,
+
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 2,
+[10:01:58.949] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.949] [bmv2] [T] [thread 2249] [42.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.949] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000003
+
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 5
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Dumping entry 5
+Match key:
+* meta.dstIp          : EXACT     0a000003
+Action entry: L3_Ingress.forward - 400,
+
+[10:01:58.949] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Action entry is L3_Ingress.forward - 400,
+[10:01:58.949] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.950] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Primitive (no source info)
+[10:01:58.950] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Primitive (no source info)
+[10:01:58.950] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Primitive (no source info)
+[10:01:58.950] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Primitive (no source info)
+[10:01:58.950] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Primitive (no source info)
+[10:01:58.950] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Primitive (no source info)
+[10:01:58.950] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Primitive (no source info)
+[10:01:58.950] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Primitive (no source info)
+[10:01:58.950] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Primitive (no source info)
+[10:01:58.950] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Primitive (no source info)
+[10:01:58.950] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Primitive (no source info)
+[10:01:58.950] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Primitive (no source info)
+[10:01:58.950] [bmv2] [T] [thread 2249] [42.0] [cxt 0] Primitive (no source info)
+[10:01:58.950] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.950] [bmv2] [D] [thread 2249] [42.0] [cxt 0] Egress port is 2
+[10:01:58.950] [bmv2] [D] [thread 2252] [42.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.950] [bmv2] [D] [thread 2252] [42.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.950] [bmv2] [D] [thread 2252] [42.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.950] [bmv2] [D] [thread 2252] [42.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.950] [bmv2] [D] [thread 2252] [42.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.950] [bmv2] [D] [thread 2252] [42.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.950] [bmv2] [D] [thread 2252] [42.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.950] [bmv2] [D] [thread 2254] [42.0] [cxt 0] Transmitting packet of size 98 out of port 2
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Processing packet received on port 2
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Parser 'parser': start
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Bytes parsed: 14
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (3232235779)
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Bytes parsed: 34
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Parser 'parser': end
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80103
+
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 0
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Dumping entry 0
+Match key:
+* meta.dstIp          : LPM       c0a80100/24
+Action entry: L3_Ingress.set_dst_egress - 1,
+
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 1,
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Looking up key:
+* meta.dstIp          : c0a80103
+
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 2
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Dumping entry 2
+Match key:
+* meta.dstIp          : EXACT     c0a80103
+Action entry: L3_Ingress.forward - 200,
+
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Action entry is L3_Ingress.forward - 200,
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Primitive (no source info)
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Primitive (no source info)
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Primitive (no source info)
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Primitive (no source info)
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Primitive (no source info)
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Primitive (no source info)
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Primitive (no source info)
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Primitive (no source info)
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Primitive (no source info)
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Primitive (no source info)
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Primitive (no source info)
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Primitive (no source info)
+[10:01:58.957] [bmv2] [T] [thread 2249] [43.0] [cxt 0] Primitive (no source info)
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.957] [bmv2] [D] [thread 2249] [43.0] [cxt 0] Egress port is 1
+[10:01:58.957] [bmv2] [D] [thread 2251] [43.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.957] [bmv2] [D] [thread 2251] [43.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.957] [bmv2] [D] [thread 2251] [43.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.957] [bmv2] [D] [thread 2251] [43.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.957] [bmv2] [D] [thread 2251] [43.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.957] [bmv2] [D] [thread 2251] [43.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.957] [bmv2] [D] [thread 2251] [43.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.957] [bmv2] [D] [thread 2254] [43.0] [cxt 0] Transmitting packet of size 98 out of port 1
+[10:01:58.959] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Processing packet received on port 1
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Parser 'parser': start
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Parser 'parser' entering state 'start'
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Extracting header 'ethernet'
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Parser state 'start': key is 0800
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Bytes parsed: 14
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Extracting header 'ipv4'
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Parser set: setting field 'scalars.metadata.dstIp' from field 'ipv4.dstAddr' (167772163)
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Parser state 'parse_ipv4' has no switch, going to default next state
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Bytes parsed: 34
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Parser 'parser': end
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Pipeline 'ingress': start
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Applying table 'L3_Ingress.ipv4_lpm'
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000003
+
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Table 'L3_Ingress.ipv4_lpm': hit with handle 1
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.dstIp          : LPM       0a000000/24
+Action entry: L3_Ingress.set_dst_egress - 2,
+
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Action entry is L3_Ingress.set_dst_egress - 2,
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Action L3_Ingress.set_dst_egress
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] l3.p4(101) Primitive standard_metadata.egress_spec = port
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Applying table 'L3_Ingress.mac_table'
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Looking up key:
+* meta.dstIp          : 0a000003
+
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Table 'L3_Ingress.mac_table': hit with handle 5
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Dumping entry 5
+Match key:
+* meta.dstIp          : EXACT     0a000003
+Action entry: L3_Ingress.forward - 400,
+
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Action entry is L3_Ingress.forward - 400,
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Action L3_Ingress.forward
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Primitive (no source info)
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Primitive (no source info)
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Primitive (no source info)
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Primitive (no source info)
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Primitive (no source info)
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Primitive (no source info)
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Primitive (no source info)
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Primitive (no source info)
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Primitive (no source info)
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Primitive (no source info)
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Primitive (no source info)
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Primitive (no source info)
+[10:01:58.960] [bmv2] [T] [thread 2249] [44.0] [cxt 0] Primitive (no source info)
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Pipeline 'ingress': end
+[10:01:58.960] [bmv2] [D] [thread 2249] [44.0] [cxt 0] Egress port is 2
+[10:01:58.960] [bmv2] [D] [thread 2252] [44.0] [cxt 0] Pipeline 'egress': start
+[10:01:58.960] [bmv2] [D] [thread 2252] [44.0] [cxt 0] Pipeline 'egress': end
+[10:01:58.960] [bmv2] [D] [thread 2252] [44.0] [cxt 0] Deparser 'deparser': start
+[10:01:58.960] [bmv2] [D] [thread 2252] [44.0] [cxt 0] Updating checksum 'cksum'
+[10:01:58.960] [bmv2] [D] [thread 2252] [44.0] [cxt 0] Deparsing header 'ethernet'
+[10:01:58.960] [bmv2] [D] [thread 2252] [44.0] [cxt 0] Deparsing header 'ipv4'
+[10:01:58.960] [bmv2] [D] [thread 2252] [44.0] [cxt 0] Deparser 'deparser': end
+[10:01:58.960] [bmv2] [D] [thread 2254] [44.0] [cxt 0] Transmitting packet of size 98 out of port 2
+open: No such file or directory

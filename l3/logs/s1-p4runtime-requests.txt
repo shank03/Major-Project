@@ -1,0 +1,96 @@
+
+[2023-10-10 05:07:40.635] /p4.v1.P4Runtime/SetForwardingPipelineConfig
+---
+Message too long (16181 bytes)! Skipping log...
+---
+
+[2023-10-10 05:07:40.641] /p4.v1.P4Runtime/Write
+---
+election_id {
+  low: 1
+}
+updates {
+  type: MODIFY
+  entity {
+    table_entry {
+      table_id: 35817352
+      action {
+        action {
+          action_id: 28170566
+        }
+      }
+      is_default_action: true
+    }
+  }
+}
+---
+
+[2023-10-10 05:07:40.644] /p4.v1.P4Runtime/Write
+---
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    table_entry {
+      table_id: 35817352
+      match {
+        field_id: 1
+        lpm {
+          value: "\300\250\001\000"
+          prefix_len: 24
+        }
+      }
+      action {
+        action {
+          action_id: 31149130
+          params {
+            param_id: 1
+            value: "\000\000\000\000\001\000"
+          }
+          params {
+            param_id: 2
+            value: "\000\001"
+          }
+        }
+      }
+    }
+  }
+}
+---
+
+[2023-10-10 05:07:40.646] /p4.v1.P4Runtime/Write
+---
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    table_entry {
+      table_id: 35817352
+      match {
+        field_id: 1
+        lpm {
+          value: "\300\250\002\000"
+          prefix_len: 24
+        }
+      }
+      action {
+        action {
+          action_id: 31149130
+          params {
+            param_id: 1
+            value: "\000\000\000\000\002\000"
+          }
+          params {
+            param_id: 2
+            value: "\000\002"
+          }
+        }
+      }
+    }
+  }
+}
+---
