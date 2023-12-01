@@ -13,28 +13,12 @@ header ethernet_t {
     bit<16> etherType;
 }
 
-header ipv4_t {
-    bit<4>    version;
-    bit<4>    ihl;
-    bit<8>    diffserv;
-    bit<16>   totalLen;
-    bit<16>   identification;
-    bit<3>    flags;
-    bit<13>   fragOffset;
-    bit<8>    ttl;
-    bit<8>    protocol;
-    bit<16>   hdrChecksum;
-    ip4Addr_t srcAddr;
-    ip4Addr_t dstAddr;
-}
-
 struct metadata {
     /* empty */
 }
 
 struct headers {
     ethernet_t ethernet;
-    ipv4_t     ipv4;
 }
 
 parser L2_Parser(packet_in packet, out headers hdr, inout metadata meta, inout standard_metadata_t standard_metadata) {
@@ -97,7 +81,7 @@ control L2_Egress(inout headers hdr, inout metadata meta, inout standard_metadat
     action drop() {
         mark_to_drop(standard_metadata);
     }
-    
+
     apply {
         if (standard_metadata.egress_port == standard_metadata.ingress_port) {
             drop();

@@ -13,28 +13,12 @@ header ethernet_t {
     bit<16> etherType;
 }
 
-header ipv4_t {
-    bit<4>    version;
-    bit<4>    ihl;
-    bit<8>    diffserv;
-    bit<16>   totalLen;
-    bit<16>   identification;
-    bit<3>    flags;
-    bit<13>   fragOffset;
-    bit<8>    ttl;
-    bit<8>    protocol;
-    bit<16>   hdrChecksum;
-    ip4Addr_t srcAddr;
-    ip4Addr_t dstAddr;
-}
-
 struct metadata {
     /* empty */
 }
 
 struct headers {
     ethernet_t ethernet;
-    ipv4_t     ipv4;
 }
 
 parser L2_Parser(packet_in packet, out headers hdr, inout metadata meta, inout standard_metadata_t standard_metadata) {
@@ -88,26 +72,7 @@ control L2_Egress(inout headers hdr, inout metadata meta, inout standard_metadat
 }
 
 control L2_ComputeChecksum(inout headers hdr, inout metadata meta) {
-    apply {
-        // update_checksum(
-        //     hdr.ipv4.isValid(),
-        //     {
-        //         hdr.ipv4.version,
-        //         hdr.ipv4.ihl,
-        //         hdr.ipv4.diffserv,
-        //         hdr.ipv4.totalLen,
-        //         hdr.ipv4.identification,
-        //         hdr.ipv4.flags,
-        //         hdr.ipv4.fragOffset,
-        //         hdr.ipv4.ttl,
-        //         hdr.ipv4.protocol,
-        //         hdr.ipv4.srcAddr,
-        //         hdr.ipv4.dstAddr
-        //     },
-        //     hdr.ipv4.hdrChecksum,
-        //     HashAlgorithm.csum16
-        // );
-    }
+    apply { }
 }
 
 control L2_Deparser(packet_out packet, in headers hdr) {
