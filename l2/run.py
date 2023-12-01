@@ -61,6 +61,9 @@ class Runner():
         CLI(self.net)
         self.net.stop()
 
+        print("\n==== CLEANING ====\n")
+        os.system("mn -c")
+
 
     def configure_topo(self):
         topo = Topo()
