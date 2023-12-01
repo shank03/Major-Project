@@ -7,3 +7,8 @@ ngsdn
 build
 tutorials
 x-*
+
+**/build
+**/__pycache__
+**/logs
+**/pcaps
