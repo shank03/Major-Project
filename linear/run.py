@@ -100,8 +100,7 @@ class Runner:
         topo.addLink(h3, s2, port2=2)
         topo.addLink(h4, s2, port2=3)
 
-        self.net = Mininet(topo=topo, link=TCLink, host=P4Host, controller=RemoteController(name='onos-cl'),
-                           waitConnected=True)
+        self.net = Mininet(topo=topo, link=TCLink, host=P4Host, controller=None)
         self.net.start()
 
     def configure_hosts(self):

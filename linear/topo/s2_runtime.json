@@ -5,6 +5,14 @@
     "table_entries": [
         {
             "table": "L2_Ingress.mac_table",
+            "default_action": true,
+            "action_name": "L2_Ingress.mac_forward",
+            "action_params": {
+                "port": 1
+            }
+        },
+        {
+            "table": "L2_Ingress.mac_table",
             "match": {
                 "hdr.ethernet.dstAddr": "20:00:00:00:00:00"
             },

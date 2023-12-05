@@ -62,14 +62,13 @@ control L2_Ingress(inout headers hdr, inout metadata meta, inout standard_metada
             NoAction;
         }
         size = 1024;
-        default_action = multicast();
     }
 
     apply {
-        if (hdr.ethernet.dstAddr == 48w0xFFFFFFFFFF) {
-            multicast();
-        } else {
-            if (hdr.ethernet.isValid()) {
+        if (hdr.ethernet.isValid()) {
+            if (hdr.ethernet.dstAddr == 48w0xFFFFFFFFFF) {
+                multicast();
+            } else {
                 mac_table.apply();
             }
         }

@@ -27,7 +27,7 @@
             "table": "L3_Ingress.ipv4_lpm",
             "match": {
                 "hdr.ipv4.dstAddr": [
-                    "192.168.2.0",
+                    "10.0.0.0",
                     24
                 ]
             },

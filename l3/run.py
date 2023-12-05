@@ -68,12 +68,12 @@ class Runner():
         topo = Topo()
 
         h1 = topo.addHost('h1', ip="192.168.1.2/24", mac="00:00:00:00:01:00")
-        h2 = topo.addHost('h2', ip="192.168.2.2/24", mac="00:00:00:00:02:00")
+        h2 = topo.addHost('h2', ip="10.0.0.2/24", mac="00:00:00:00:02:00")
         self.hosts = [h1, h2]
 
-        s1 = topo.addSwitch('s1', log_file="%s/%s.log" %(self.log_dir, 's1'), cls=self.p4_switch_classes['l3'])
-        topo.addLink(h1, s1, port2=1)
-        topo.addLink(h2, s1, port2=2)
+        r1 = topo.addSwitch('r1', log_file="%s/%s.log" %(self.log_dir, 'r1'), cls=self.p4_switch_classes['l3'])
+        topo.addLink(h1, r1, port2=1)
+        topo.addLink(h2, r1, port2=2)
 
         self.net = Mininet(topo=topo, link=TCLink, host=P4Host, controller=None)
         self.net.start()
@@ -82,8 +82,8 @@ class Runner():
         self.net['h1'].cmd("route add default gw 192.168.1.1 dev eth0")
         self.net['h1'].cmd("arp -i eth0 -s 192.168.1.1 00:00:00:00:01:10")
 
-        self.net['h2'].cmd("route add default gw 192.168.2.1 dev eth0")
-        self.net['h2'].cmd("arp -i eth0 -s 192.168.2.1 00:00:00:00:02:10")
+        self.net['h2'].cmd("route add default gw 10.0.0.1 dev eth0")
+        self.net['h2'].cmd("arp -i eth0 -s 10.0.0.1 00:00:00:00:02:10")
 
     def configure_switches(self):
         for sw in self.switches:
@@ -102,4 +102,4 @@ class Runner():
                     runtime_json=runtime_json
                 )
 
-Runner(p4_list=['l3'], switches=['s1']).run()
+Runner(p4_list=['l3'], switches=['r1']).run()

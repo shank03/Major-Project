@@ -3,12 +3,7 @@
 
 const bit<16> TYPE_IPV4 = 0x800;
 const bit<16> TYPE_ARP = 0x806;
-const bit<8>  IPPROTO_ICMP   = 0x01;
 
-const bit<16> ARP_HTYPE_ETHERNET = 0x0001;
-const bit<16> ARP_PTYPE_IPV4     = 0x0800;
-const bit<8>  ARP_HLEN_ETHERNET  = 6;
-const bit<8>  ARP_PLEN_IPV4      = 4;
 const bit<16> ARP_OPER_REQUEST   = 1;
 const bit<16> ARP_OPER_REPLY     = 2;
 
