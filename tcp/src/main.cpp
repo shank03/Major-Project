@@ -5,8 +5,8 @@
 #include <iostream>
 #include <thread>
 
-#include "csm.h"
-#include "netfilter.h"
+#include "csm.hpp"
+#include "tcp.hpp"
 
 int setup_iptables_rules() {
     return system("sudo iptables -I OUTPUT -j NFQUEUE --queue-bypass && sudo iptables -I INPUT -j NFQUEUE --queue-bypass");
@@ -39,7 +39,7 @@ in_addr *get_interface_ip(char *interface) {
 
 int main(int argc, char *argv[]) {
     if (argc <= 1) {
-        std::cerr << "Usage: tcp-shank <interface> <next-hop ip (optional)>" << std::endl;
+        std::cerr << "Usage: tcp_nfq-shank <interface> <next-hop ip (optional)>" << std::endl;
         return 1;
     }
 
@@ -63,8 +63,8 @@ int main(int argc, char *argv[]) {
     }
 
     auto handler = [](in_addr *src, char *nh_ip) -> void {
-        std::cout << "[Main] Starting nfq\n";
-        nfq::start_handle(src, nh_ip);
+        std::cout << "[Main] Starting tcp_nfq\n";
+        tcp_nfq::start_handle(src, nh_ip);
     };
 
     std::thread(handler, addr, nh_ip).join();

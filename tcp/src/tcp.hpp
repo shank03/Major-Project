@@ -1,16 +1,16 @@
 #include <libnetfilter_queue/libnetfilter_queue.h>
+#include <linux/ip.h>
 #include <linux/netfilter.h>
 #include <linux/tcp.h>
-#include <linux/ip.h>
 #include <linux/udp.h>
 
 #include <atomic>
 
-#include "checksum.h"
+#include "checksum.hpp"
 
 #define MAX_PAYLOAD_SIZE 4096
 
-namespace nfq {
+namespace tcp_nfq {
 
     static std::atomic<bool>  udp_req_called      = false;
     static std::atomic<short> packets_transferred = 0;
@@ -161,4 +161,4 @@ namespace nfq {
 
         return 0;
     }
-}    // namespace nfq
+}    // namespace tcp_nfq
