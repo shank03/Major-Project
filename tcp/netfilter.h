@@ -1,10 +1,12 @@
 #include <libnetfilter_queue/libnetfilter_queue.h>
 #include <linux/netfilter.h>
-#include <netinet/ip.h>
-#include <netinet/tcp.h>
-#include <netinet/udp.h>
+#include <linux/tcp.h>
+#include <linux/ip.h>
+#include <linux/udp.h>
 
 #include <atomic>
+
+#include "checksum.h"
 
 #define MAX_PAYLOAD_SIZE 4096
 
@@ -29,23 +31,23 @@ namespace nfq {
 
         // Manipulate the packet here if needed
         // For example, modify TCP destination port
-        auto *ip_header = (ip *) packet;
-        if (ip_header->ip_src.s_addr == 16777343 || ip_header->ip_dst.s_addr == 16777343) {
+        auto *ip_header = (iphdr *) packet;
+        if (ip_header->saddr == 16777343 || ip_header->daddr == 16777343) {
             // Skip localhost
             return nfq_set_verdict(qh, packet_id, NF_ACCEPT, 0, nullptr);
         }
 
-        if (ip_header->ip_p == IPPROTO_UDP) {
-            if (ip_header->ip_src.s_addr == source_ip->s_addr) {
+        if (ip_header->protocol == IPPROTO_UDP) {
+            if (ip_header->saddr == source_ip->s_addr) {
                 return nfq_set_verdict(qh, packet_id, NF_ACCEPT, 0, nullptr);
             }
 
             // Capture only those with immediate hop
-            if (ip_header->ip_ttl - 1 != 0) {
+            if (ip_header->ttl - 1 != 0) {
                 return nfq_set_verdict(qh, packet_id, NF_ACCEPT, 0, nullptr);
             }
 
-            auto *udp_header = (udphdr *) (packet + (ip_header->ip_hl << 2));
+            auto *udp_header = (udphdr *) (packet + (ip_header->ihl << 2));
             if (ntohs(udp_header->dest) != CONGESTION_STATE_PORT) {
                 return nfq_set_verdict(qh, packet_id, NF_ACCEPT, 0, nullptr);
             }
@@ -53,11 +55,11 @@ namespace nfq {
             std::cout << "[NFQ] [UDP] CS response\n";
 
             std::cout << "--\n";
-            std::cout << "[NFQ] [UDP] source IP: " << inet_ntoa(ip_header->ip_src) << std::endl;
+            std::cout << "[NFQ] [UDP] source IP: " << inet_ntoa(in_addr { ip_header->saddr }) << std::endl;
             std::cout << "source port: " << ntohs(udp_header->source) << std::endl;
             std::cout << "dest port: " << ntohs(udp_header->dest) << std::endl;
 
-            const u_char *payload = packet + (ip_header->ip_hl << 2) + sizeof(udphdr);
+            const u_char *payload = packet + (ip_header->ihl << 2) + sizeof(udphdr);
             //            int           payload_len = htons(udp_header->len) - sizeof(udphdr);
 
             csm::state->update_state((csm::CS) payload);
@@ -66,8 +68,8 @@ namespace nfq {
             std::cout << "[NFQ] [CS] state: s: " << (csm::state->send ? "all" : "limited") << "; v: " << csm::state->value << "; d: " << csm::state->delay << std::endl;
         }
 
-        if (ip_header->ip_p == IPPROTO_TCP) {
-            if (ip_header->ip_src.s_addr == source_ip->s_addr) {
+        if (ip_header->protocol == IPPROTO_TCP) {
+            if (ip_header->saddr != source_ip->s_addr) {
                 return nfq_set_verdict(qh, packet_id, NF_ACCEPT, 0, nullptr);
             }
 
@@ -90,7 +92,15 @@ namespace nfq {
             udp_req_called = false;
             packet_drops   = 0;
 
+            auto *tcp_header = (tcphdr *) (packet + (ip_header->ihl << 2));
+
             if (!csm::state->send) {
+                tcp_header->cwr    = 1;
+                tcp_header->window = htons(csm::state->value);
+
+                ip_header->check  = update_ip_checksum(ip_header);
+                tcp_header->check = update_tcp_checksum(ip_header, tcp_header);
+
                 if (packets_transferred == csm::state->value) {
                     if (csm::state->delay > 0) {
                         std::cout << "[NFQ] [CS] Delaying for " << csm::state->delay << "us" << std::endl;
@@ -99,6 +109,8 @@ namespace nfq {
                     packets_transferred = 0;
                 }
                 packets_transferred++;
+
+                return nfq_set_verdict(qh, ntohl(ph->packet_id), NF_ACCEPT, packet_len, packet);
             }
         }
 
