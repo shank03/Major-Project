@@ -45,7 +45,7 @@ in_addr *get_interface_ip(char *interface) {
 
 int main(int argc, char *argv[]) {
     if (argc <= 1) {
-        std::cerr << "Usage: tcp_nfq-shank <interface> <next-hop ip (optional)>" << std::endl;
+        std::cerr << "Usage: tcp-shank <interface> <next-hop ip (optional)>" << std::endl;
         return 1;
     }
 
