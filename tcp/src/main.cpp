@@ -1,12 +1,18 @@
 #include <arpa/inet.h>
 #include <ifaddrs.h>
 
+#include <csignal>
 #include <cstring>
 #include <iostream>
 #include <thread>
 
 #include "csm.hpp"
 #include "tcp.hpp"
+
+void interrupt_handle(int) {
+    std::cout << " -- Signal Caught -- " << std::endl;
+    tcp_nfq::Handler::stop();
+}
 
 int setup_iptables_rules() {
     return system("sudo iptables -I OUTPUT -j NFQUEUE --queue-bypass && sudo iptables -I INPUT -j NFQUEUE --queue-bypass");
@@ -62,12 +68,10 @@ int main(int argc, char *argv[]) {
         std::cout << "[Main] Next-Hop IP: " << nh_ip << std::endl;
     }
 
-    auto handler = [](in_addr *src, char *nh_ip) -> void {
-        std::cout << "[Main] Starting tcp_nfq\n";
-        tcp_nfq::start_handle(src, nh_ip);
-    };
+    signal(SIGINT, interrupt_handle);
 
-    std::thread(handler, addr, nh_ip).join();
+    std::thread([&addr, &nh_ip]() -> void { tcp_nfq::Handler::start(addr, nh_ip); }).join();
+    std::cout << "Terminated\n";
 
     return 0;
 }
