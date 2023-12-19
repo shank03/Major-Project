@@ -10,5 +10,6 @@ x-*
 
 **/build
 **/__pycache__
+**/**/__pycache__
 **/logs
 **/pcaps
