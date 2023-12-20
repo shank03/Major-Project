@@ -17,8 +17,6 @@ namespace tcp_nfq {
     private:
         Handler() = default;
 
-        static std::atomic<bool> looper;
-
         static std::atomic<bool>  udp_req_called;
         static std::atomic<short> packets_transferred;
         static std::atomic<short> packet_drops;
@@ -27,15 +25,14 @@ namespace tcp_nfq {
         static in_addr_t     local_addr;
         static csm::Manager *csm_manager;
 
-        static void init(in_addr *src, char *nh_ip) {
-            looper              = true;
+        static void init(in_addr *src, in_addr *dg) {
             udp_req_called      = false;
             packets_transferred = 0;
             packet_drops        = 0;
 
             source_ip   = src;
             local_addr  = inet_addr("127.0.0.1");
-            csm_manager = new csm::Manager(nh_ip);
+            csm_manager = new csm::Manager(dg);
         }
 
         static int packet_callback(nfq_q_handle *qh, nfgenmsg *, nfq_data *nfad, void *) {
@@ -131,13 +128,8 @@ namespace tcp_nfq {
         };
 
     public:
-        static void stop() {
-            looper = false;
-            csm_manager->cs_req_state();
-        }
-
-        static int start(in_addr *src, char *nh_ip) {
-            init(src, nh_ip);
+        static int start(in_addr *src, in_addr *dg) {
+            init(src, dg);
 
             nfq_handle   *handle;
             nfq_q_handle *queue_handle;
@@ -170,7 +162,7 @@ namespace tcp_nfq {
             std::cout << NFQ_TAG << "Starting handle" << std::endl;
 
             fd = nfq_fd(handle);
-            while (looper && (rv = recv(fd, buf, sizeof(buf), 0)) && rv >= 0) {
+            while ((rv = recv(fd, buf, sizeof(buf), 0)) && rv >= 0) {
                 nfq_handle_packet(handle, buf, rv);
             }
 
@@ -182,8 +174,6 @@ namespace tcp_nfq {
             return 0;
         }
     };
-
-    std::atomic<bool> Handler::looper = true;
 
     std::atomic<bool>  Handler::udp_req_called      = false;
     std::atomic<short> Handler::packets_transferred = 0;

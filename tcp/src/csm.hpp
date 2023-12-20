@@ -3,7 +3,6 @@
 #define MAX_CS_REQ_DROP       3    // num of packet drops to wait until considering timeout
 #define CONGESTION_STATE_PORT 16
 #define CONGESTION_STATE_TTL  (10 * 1000)    // 10s
-#define CSM_NH_IP             "255.255.255.254"
 #define CSM_TAG               "[CSM] "
 
 /* congestion state manager */
@@ -19,7 +18,7 @@ namespace csm {
     private:
         congestion_state *state;
         uint64_t          state_ttl;
-        char             *csm_ip;
+        in_addr          *csm_ip;
 
         static uint64_t get_current_millis() {
             auto time     = std::chrono::system_clock::now();
@@ -32,12 +31,10 @@ namespace csm {
         }
 
     public:
-        explicit Manager(const char *nh_ip) {
+        explicit Manager(in_addr *dg) {
             state     = new congestion_state { true, 0, 0 };
             state_ttl = 0;
-
-            csm_ip = new char[16] { 0 };
-            strcpy(csm_ip, nh_ip == nullptr ? CSM_NH_IP : nh_ip);
+            csm_ip    = dg;
         }
 
         bool send() {
@@ -103,7 +100,7 @@ namespace csm {
             memset((char *) &server_addr, 0, sizeof(server_addr));
             server_addr.sin_family      = AF_INET;
             server_addr.sin_port        = htons(CONGESTION_STATE_PORT);
-            server_addr.sin_addr.s_addr = inet_addr(csm_ip);
+            server_addr.sin_addr.s_addr = csm_ip->s_addr;
 
             // Message to send
             const char *message = "Requested Congestion State";
@@ -116,7 +113,7 @@ namespace csm {
                 return 1;
             }
 
-            std::cout << CSM_TAG << "[" << csm_ip << "] Message sent" << std::endl;
+            std::cout << CSM_TAG << "[" << inet_ntoa(*csm_ip) << "] Message sent" << std::endl;
 
             // Close socket
             close(udp_socket);
