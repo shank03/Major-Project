@@ -13,3 +13,5 @@ x-*
 **/**/__pycache__
 **/logs
 **/pcaps
+
+**/**/.DS_Store
