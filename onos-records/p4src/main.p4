@@ -91,44 +91,18 @@ header arp_t {
 }
 
 header ipv4_t {
-    bit<4>   version;
-    bit<4>   ihl;
-    bit<6>   dscp;
-    bit<2>   ecn;
-    bit<16>  total_len;
-    bit<16>  identification;
-    bit<3>   flags;
-    bit<13>  frag_offset;
-    bit<8>   ttl;
-    bit<8>   protocol;
-    bit<16>  hdr_checksum;
-    bit<32>  src_addr;
-    bit<32>  dst_addr;
-}
-
-header ipv6_t {
     bit<4>    version;
-    bit<8>    traffic_class;
-    bit<20>   flow_label;
-    bit<16>   payload_len;
-    bit<8>    next_hdr;
-    bit<8>    hop_limit;
-    bit<128>  src_addr;
-    bit<128>  dst_addr;
-}
-
-header srv6h_t {
-    bit<8>   next_hdr;
-    bit<8>   hdr_ext_len;
-    bit<8>   routing_type;
-    bit<8>   segment_left;
-    bit<8>   last_entry;
-    bit<8>   flags;
-    bit<16>  tag;
-}
-
-header srv6_list_t {
-    bit<128>  segment_id;
+    bit<4>    ihl;
+    bit<8>    diffserv;
+    bit<16>   totalLen;
+    bit<16>   identification;
+    bit<3>    flags;
+    bit<13>   frag_offset;
+    bit<8>    ttl;
+    bit<8>    protocol;
+    bit<16>   hdr_checksum;
+    ipv4_addr_t src_addr;
+    ipv4_addr_t dst_addr;
 }
 
 header tcp_t {
@@ -161,21 +135,6 @@ header icmp_t {
     bit<64>  timestamp;
 }
 
-header icmpv6_t {
-    bit<8>   type;
-    bit<8>   code;
-    bit<16>  checksum;
-}
-
-header ndp_t {
-    bit<32>      flags;
-    ipv6_addr_t  target_ipv6_addr;
-    // NDP option.
-    bit<8>       type;
-    bit<8>       length;
-    bit<48>      target_mac_addr;
-}
-
 // Packet-in header. Prepended to packets sent to the CPU_PORT and used by the
 // P4Runtime server (Stratum) to populate the PacketIn message metadata fields.
 // Here we use it to carry the original ingress port where the packet was
@@ -202,21 +161,15 @@ struct parsed_headers_t {
     ethernet_t ethernet;
     arp_t arp;
     ipv4_t ipv4;
-    ipv6_t ipv6;
-    srv6h_t srv6h;
-    srv6_list_t[SRV6_MAX_HOPS] srv6_list;
     tcp_t tcp;
     udp_t udp;
     icmp_t icmp;
-    icmpv6_t icmpv6;
-    ndp_t ndp;
 }
 
 struct local_metadata_t {
     l4_port_t   l4_src_port;
     l4_port_t   l4_dst_port;
     bool        is_multicast;
-    ipv6_addr_t next_srv6_sid;
     bit<8>      ip_proto;
     bit<8>      icmp_type;
 }
@@ -247,7 +200,6 @@ parser ParserImpl (packet_in packet,
         packet.extract(hdr.ethernet);
         transition select(hdr.ethernet.ether_type){
             ETHERTYPE_IPV4: parse_ipv4;
-            ETHERTYPE_IPV6: parse_ipv6;
             ETHERTYPE_ARP: parse_arp;
             default: accept;
         }
@@ -265,18 +217,6 @@ parser ParserImpl (packet_in packet,
             IP_PROTO_TCP: parse_tcp;
             IP_PROTO_UDP: parse_udp;
             IP_PROTO_ICMP: parse_icmp;
-            default: accept;
-        }
-    }
-
-    state parse_ipv6 {
-        packet.extract(hdr.ipv6);
-        local_metadata.ip_proto = hdr.ipv6.next_hdr;
-        transition select(hdr.ipv6.next_hdr) {
-            IP_PROTO_TCP: parse_tcp;
-            IP_PROTO_UDP: parse_udp;
-            IP_PROTO_ICMPV6: parse_icmpv6;
-            IP_PROTO_SRV6: parse_srv6;
             default: accept;
         }
     }
@@ -299,59 +239,6 @@ parser ParserImpl (packet_in packet,
         packet.extract(hdr.icmp);
         local_metadata.icmp_type = hdr.icmp.type;
         transition accept;
-    }
-
-    state parse_icmpv6 {
-        packet.extract(hdr.icmpv6);
-        local_metadata.icmp_type = hdr.icmpv6.type;
-        transition select(hdr.icmpv6.type) {
-            ICMP6_TYPE_NS: parse_ndp;
-            ICMP6_TYPE_NA: parse_ndp;
-            default: accept;
-        }
-    }
-
-    state parse_ndp {
-        packet.extract(hdr.ndp);
-        transition accept;
-    }
-
-    state parse_srv6 {
-        packet.extract(hdr.srv6h);
-        transition parse_srv6_list;
-    }
-
-    state parse_srv6_list {
-        packet.extract(hdr.srv6_list.next);
-        bool next_segment = (bit<32>)hdr.srv6h.segment_left - 1 == (bit<32>)hdr.srv6_list.lastIndex;
-        transition select(next_segment) {
-            true: mark_current_srv6;
-            default: check_last_srv6;
-        }
-    }
-
-    state mark_current_srv6 {
-        local_metadata.next_srv6_sid = hdr.srv6_list.last.segment_id;
-        transition check_last_srv6;
-    }
-
-    state check_last_srv6 {
-        // working with bit<8> and int<32> which cannot be cast directly; using
-        // bit<32> as common intermediate type for comparision
-        bool last_segment = (bit<32>)hdr.srv6h.last_entry == (bit<32>)hdr.srv6_list.lastIndex;
-        transition select(last_segment) {
-           true: parse_srv6_next_hdr;
-           false: parse_srv6_list;
-        }
-    }
-
-    state parse_srv6_next_hdr {
-        transition select(hdr.srv6h.next_hdr) {
-            IP_PROTO_TCP: parse_tcp;
-            IP_PROTO_UDP: parse_udp;
-            IP_PROTO_ICMPV6: parse_icmpv6;
-            default: accept;
-        }
     }
 }
 
@@ -632,22 +519,22 @@ control ComputeChecksumImpl(inout parsed_headers_t hdr,
         // The following is used to update the ICMPv6 checksum of NDP
         // NA packets generated by the ndp reply table in the ingress pipeline.
         // This function is executed only if the NDP header is present.
-        update_checksum(hdr.ndp.isValid(),
+        update_checksum(
+            hdr.ipv4.isValid(),
             {
-                hdr.ipv6.src_addr,
-                hdr.ipv6.dst_addr,
-                hdr.ipv6.payload_len,
-                8w0,
-                hdr.ipv6.next_hdr,
-                hdr.icmpv6.type,
-                hdr.icmpv6.code,
-                hdr.ndp.flags,
-                hdr.ndp.target_ipv6_addr,
-                hdr.ndp.type,
-                hdr.ndp.length,
-                hdr.ndp.target_mac_addr
+                hdr.ipv4.version,
+                hdr.ipv4.ihl,
+                hdr.ipv4.diffserv,
+                hdr.ipv4.totalLen,
+                hdr.ipv4.identification,
+                hdr.ipv4.flags,
+                hdr.ipv4.frag_offset,
+                hdr.ipv4.ttl,
+                hdr.ipv4.protocol,
+                hdr.ipv4.src_addr,
+                hdr.ipv4.dst_addr
             },
-            hdr.icmpv6.checksum,
+            hdr.ipv4.hdr_checksum,
             HashAlgorithm.csum16
         );
     }
@@ -660,14 +547,9 @@ control DeparserImpl(packet_out packet, in parsed_headers_t hdr) {
         packet.emit(hdr.ethernet);
         packet.emit(hdr.arp);
         packet.emit(hdr.ipv4);
-        packet.emit(hdr.ipv6);
-        packet.emit(hdr.srv6h);
-        packet.emit(hdr.srv6_list);
         packet.emit(hdr.tcp);
         packet.emit(hdr.udp);
         packet.emit(hdr.icmp);
-        packet.emit(hdr.icmpv6);
-        packet.emit(hdr.ndp);
     }
 }
 
