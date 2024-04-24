@@ -227,16 +227,16 @@
             "basic": {
                 "name": "h30",
                 "locType": "grid",
-                "gridX": 500,
-                "gridY": 325
+                "gridX": 400,
+                "gridY": 225
             }
         },
         "00:00:00:00:06:00/None": {
             "basic": {
                 "name": "h31",
                 "locType": "grid",
-                "gridX": 400,
-                "gridY": 225
+                "gridX": 500,
+                "gridY": 325
             }
         },
         "00:00:00:00:07:00/None": {
