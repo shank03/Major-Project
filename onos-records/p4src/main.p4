@@ -32,10 +32,6 @@
 // CPU_PORT.
 #define CPU_CLONE_SESSION_ID 99
 
-// Maximum number of hops supported when using SRv6.
-// Required for Exercise 7.
-#define SRV6_MAX_HOPS 4
-
 typedef bit<9>   port_num_t;
 typedef bit<48>  mac_addr_t;
 typedef bit<16>  mcast_group_id_t;
@@ -43,6 +39,9 @@ typedef bit<32>  ipv4_addr_t;
 typedef bit<128> ipv6_addr_t;
 typedef bit<16>  l4_port_t;
 
+#define MAX_REC 5
+
+const bit<16> TYPE_PROBE = 0x819;
 const bit<16> ETHERTYPE_IPV4 = 0x0800;
 const bit<16> ETHERTYPE_IPV6 = 0x86dd;
 
@@ -155,10 +154,24 @@ header cpu_out_header_t {
     bit<7>      _pad;
 }
 
+header records_t {
+    bit<8> records;
+}
+
+header record_data_t {
+    bit<16> port;
+}
+
+struct parse_data_t {
+    bit<8> remaining;
+}
+
 struct parsed_headers_t {
     cpu_out_header_t cpu_out;
     cpu_in_header_t cpu_in;
     ethernet_t ethernet;
+    records_t records;
+    record_data_t[MAX_REC] data;
     arp_t arp;
     ipv4_t ipv4;
     tcp_t tcp;
@@ -167,6 +180,7 @@ struct parsed_headers_t {
 }
 
 struct local_metadata_t {
+    parse_data_t parse_data;
     l4_port_t   l4_src_port;
     l4_port_t   l4_dst_port;
     bool        is_multicast;
@@ -201,7 +215,26 @@ parser ParserImpl (packet_in packet,
         transition select(hdr.ethernet.ether_type){
             ETHERTYPE_IPV4: parse_ipv4;
             ETHERTYPE_ARP: parse_arp;
+            TYPE_PROBE: parse_record;
             default: accept;
+        }
+    }
+
+    state parse_record {
+        packet.extract(hdr.records);
+        local_metadata.parse_data.remaining = hdr.records.records + 1;
+        transition select (hdr.records.records) {
+            0: accept;
+            default: parse_record_data;
+        }
+    }
+
+    state parse_record_data {
+        packet.extract(hdr.data.next);
+        local_metadata.parse_data.remaining = local_metadata.parse_data.remaining - 1;
+        transition select (local_metadata.parse_data.remaining) {
+            0: accept;
+            default: parse_record_data;
         }
     }
 
@@ -260,32 +293,6 @@ control IngressPipeImpl (inout parsed_headers_t    hdr,
     action drop() {
         mark_to_drop(standard_metadata);
     }
-
-
-    // *** L2 BRIDGING
-    //
-    // Here we define tables to forward packets based on their Ethernet
-    // destination address. There are two types of L2 entries that we
-    // need to support:
-    //
-    // 1. Unicast entries: which will be filled in by the control plane when the
-    //    location (port) of new hosts is learned.
-    // 2. Broadcast/multicast entries: used replicate NDP Neighbor Solicitation
-    //    (NS) messages to all host-facing ports;
-    //
-    // For (2), unlike ARP messages in IPv4 which are broadcasted to Ethernet
-    // destination address FF:FF:FF:FF:FF:FF, NDP messages are sent to special
-    // Ethernet addresses specified by RFC2464. These addresses are prefixed
-    // with 33:33 and the last four octets are the last four octets of the IPv6
-    // destination multicast address. The most straightforward way of matching
-    // on such IPv6 broadcast/multicast packets, without digging in the details
-    // of RFC2464, is to use a ternary match on 33:33:**:**:**:**, where * means
-    // "don't care".
-    //
-    // For this reason, our solution defines two tables. One that matches in an
-    // exact fashion (easier to scale on switch ASIC memory) and one that uses
-    // ternary matching (which requires more expensive TCAM memories, usually
-    // much smaller).
 
     // --- l2_exact_table (for unicast entries) --------------------------------
 
@@ -405,13 +412,6 @@ control IngressPipeImpl (inout parsed_headers_t    hdr,
     apply {
 
         if (hdr.cpu_out.isValid()) {
-            // *** TODO EXERCISE 4
-            // Implement logic such that if this is a packet-out from the
-            // controller:
-            // 1. Set the packet egress port to that found in the cpu_out header
-            // 2. Remove (set invalid) the cpu_out header
-            // 3. Exit the pipeline here (no need to go through other tables
-
             standard_metadata.egress_spec = hdr.cpu_out.egress_port;
             hdr.cpu_out.setInvalid();
             exit;
@@ -425,48 +425,7 @@ control IngressPipeImpl (inout parsed_headers_t    hdr,
             }
         }
 
-        // if (hdr.icmpv6.isValid() && hdr.icmpv6.type == ICMP6_TYPE_NS) {
-        //     // *** TODO EXERCISE 5
-        //     // Insert logic to handle NDP messages to resolve the MAC address of the
-        //     // switch. You should apply the NDP reply table created before.
-        //     // If this is an NDP NS packet, i.e., if a matching entry is found,
-        //     // unset the "do_l3_l2" flag to skip the L3 and L2 tables, as the
-        //     // "ndp_ns_to_na" action already set an egress port.
-
-        //     if (ndp_reply_table.apply().hit) {
-        //         do_l3_l2 = false;
-        //     }
-        // }
-
         if (do_l3_l2) {
-
-            // *** TODO EXERCISE 5
-            // Insert logic to match the My Station table and upon hit, the
-            // routing table. You should also add a conditional to drop the
-            // packet if the hop_limit reaches 0.
-
-            // *** TODO EXERCISE 6
-            // Insert logic to match the SRv6 My SID and Transit tables as well
-            // as logic to perform PSP behavior. HINT: This logic belongs
-            // somewhere between checking the switch's my station table and
-            // applying the routing table.
-
-            // if (hdr.ipv6.isValid() && my_station_table.apply().hit) {
-
-            //     if (srv6_my_sid.apply().hit) {
-            //         // PSP logic -- enabled for all packets
-            //         if (hdr.srv6h.isValid() && hdr.srv6h.segment_left == 0) {
-            //             srv6_pop();
-            //         }
-            //     } else {
-            //         srv6_transit.apply();
-            //     }
-
-            //     routing_v6_table.apply();
-            //     // Check TTL, drop packet if necessary to avoid loops.
-            //     if(hdr.ipv6.hop_limit == 0) { drop(); }
-            // }
-
             // L2 bridging logic. Apply the exact table first...
             if (!l2_exact_table.apply().hit) {
                 // ...if an entry is NOT found, apply the ternary one in case
@@ -484,6 +443,21 @@ control IngressPipeImpl (inout parsed_headers_t    hdr,
 control EgressPipeImpl (inout parsed_headers_t hdr,
                         inout local_metadata_t local_metadata,
                         inout standard_metadata_t standard_metadata) {
+
+    action set_swid(bit<16> dpid) {
+        hdr.data[0].port = dpid;
+    }
+
+    table swid {
+        key = {
+            hdr.ethernet.ether_type: exact;
+        }
+        actions = {
+            set_swid;
+            NoAction;
+        }
+    }
+
     apply {
 
         if (standard_metadata.egress_port == CPU_PORT) {
@@ -507,6 +481,13 @@ control EgressPipeImpl (inout parsed_headers_t hdr,
         if (local_metadata.is_multicast == true &&
               standard_metadata.ingress_port == standard_metadata.egress_port) {
             mark_to_drop(standard_metadata);
+        }
+
+        if (hdr.records.isValid()) {
+            hdr.data.push_front(1);
+            hdr.data[0].setValid();
+            swid.apply();
+            hdr.records.records = hdr.records.records + 1;
         }
     }
 }
@@ -545,6 +526,8 @@ control DeparserImpl(packet_out packet, in parsed_headers_t hdr) {
     apply {
         packet.emit(hdr.cpu_in);
         packet.emit(hdr.ethernet);
+        packet.emit(hdr.records);
+        packet.emit(hdr.data);
         packet.emit(hdr.arp);
         packet.emit(hdr.ipv4);
         packet.emit(hdr.tcp);

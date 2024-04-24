@@ -12,6 +12,7 @@ services:
     volumes:
       - ./tmp:/tmp
       - ./mininet:/mininet
+      - ./records:/records
     ports:
       - "50001:50001"
       - "50002:50002"
