@@ -159,7 +159,8 @@ header records_t {
 }
 
 header record_data_t {
-    bit<16> port;
+    mac_addr_t dpid;
+    bit<8> cpu;
 }
 
 struct parse_data_t {
@@ -444,16 +445,17 @@ control EgressPipeImpl (inout parsed_headers_t hdr,
                         inout local_metadata_t local_metadata,
                         inout standard_metadata_t standard_metadata) {
 
-    action set_swid(bit<16> dpid) {
-        hdr.data[0].port = dpid;
+    action set_metrics(mac_addr_t dpid, bit<8> cpu) {
+        hdr.data[0].dpid = dpid;
+        hdr.data[0].cpu = cpu;
     }
 
-    table swid {
+    table sw_metric {
         key = {
             hdr.ethernet.ether_type: exact;
         }
         actions = {
-            set_swid;
+            set_metrics;
             NoAction;
         }
     }
@@ -486,7 +488,7 @@ control EgressPipeImpl (inout parsed_headers_t hdr,
         if (hdr.records.isValid()) {
             hdr.data.push_front(1);
             hdr.data[0].setValid();
-            swid.apply();
+            sw_metric.apply();
             hdr.records.records = hdr.records.records + 1;
         }
     }

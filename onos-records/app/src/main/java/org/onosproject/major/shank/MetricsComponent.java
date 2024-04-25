@@ -18,9 +18,11 @@ package org.onosproject.major.shank;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.onlab.packet.MacAddress;
+import org.onlab.util.SharedScheduledExecutors;
 import org.onosproject.core.ApplicationId;
 import org.onosproject.major.shank.common.Utils;
 import org.onosproject.mastership.MastershipService;
+import org.onosproject.net.Device;
 import org.onosproject.net.DeviceId;
 import org.onosproject.net.Host;
 import org.onosproject.net.PortNumber;
@@ -46,9 +48,16 @@ import org.osgi.service.component.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.crypto.Mac;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static org.onosproject.major.shank.AppConstants.INITIAL_SETUP_DELAY;
 
@@ -104,16 +113,44 @@ public class MetricsComponent {
     // activate()/deactivate().
     //--------------------------------------------------------------------------
 
-    private final HashMap<DeviceId, PortNumber> swIds = new HashMap<>();
+    private final HashMap<DeviceId, Pair<MacAddress, Integer>> swIds = new HashMap<>();
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @Activate
     protected void activate() {
         appId = mainComponent.getAppId();
+        populateSwIds();
 
         // Register listeners to be informed about device and host events.
         deviceService.addListener(deviceListener);
         // Schedule set up of existing devices. Needed when reloading the app.
         mainComponent.scheduleTask(this::setUpAllDevices, INITIAL_SETUP_DELAY);
+
+        executorService.execute(() -> {
+            while (true) {
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader("/data/top.csv"));
+                    StringBuilder output = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        String[] recs = line.split(",");
+
+                        DeviceId deviceId = DeviceId.deviceId(recs[0]);
+                        Pair<MacAddress, Integer> metric = swIds.get(deviceId);
+                        if (metric != null) {
+                            swIds.put(deviceId, Pair.of(metric.getLeft(), Integer.parseInt(recs[2])));
+                            setUpDevice(deviceId);
+                        }
+                    }
+                    br.close();
+
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    break;
+                }
+            }
+        });
 
         log.info("Started");
     }
@@ -121,6 +158,7 @@ public class MetricsComponent {
     @Deactivate
     protected void deactivate() {
         deviceService.removeListener(deviceListener);
+        executorService.shutdown();
 
         log.info("Stopped");
     }
@@ -137,14 +175,14 @@ public class MetricsComponent {
      * @param deviceId the device to set up
      */
     private void setUpDevice(DeviceId deviceId) {
-        final String tableId = "EgressPipeImpl.swid";
+        final String tableId = "EgressPipeImpl.sw_metric";
 
-        PortNumber id = swIds.get(deviceId);
-        if (id == null) {
-            id = PortNumber.portNumber(99);
+        Pair<MacAddress, Integer> metric = swIds.get(deviceId);
+        if (metric == null) {
+            metric = Pair.of(MacAddress.valueOf("FF:FF:FF:FF:FF:FF"), 0);
         }
 
-        log.info("{} device has port swid of {}", deviceId, id.toLong());
+        log.info("Updating metric rule for {} with {}; {}", deviceId, metric.getLeft(), metric.getRight());
 
         final PiCriterion hostMacCriterion = PiCriterion.builder()
                 .matchExact(
@@ -154,10 +192,15 @@ public class MetricsComponent {
 
         // Action: set output port
         final PiAction action = PiAction.builder()
-                .withId(PiActionId.of("EgressPipeImpl.set_swid"))
-                .withParameter(new PiActionParam(
-                        PiActionParamId.of("dpid"),
-                        id.toLong()))
+                .withId(PiActionId.of("EgressPipeImpl.set_metrics"))
+                .withParameters(List.of(
+                        new PiActionParam(
+                                PiActionParamId.of("dpid"),
+                                metric.getLeft().toBytes()),
+                        new PiActionParam(
+                                PiActionParamId.of("cpu"),
+                                metric.getRight())
+                ))
                 .build();
         // ---- END SOLUTION ----
 
@@ -225,8 +268,6 @@ public class MetricsComponent {
      * This method is called at component activation.
      */
     private void setUpAllDevices() {
-        populateSwIds();
-
         deviceService.getAvailableDevices().forEach(device -> {
             if (mastershipService.isLocalMaster(device.id())) {
                 log.info("*** MetricsComp - Starting initial set up for {}...", device.id());
@@ -236,10 +277,10 @@ public class MetricsComponent {
     }
 
     private void populateSwIds() {
-        swIds.put(DeviceId.deviceId("device:s0"), PortNumber.portNumber(0));
-        swIds.put(DeviceId.deviceId("device:s1"), PortNumber.portNumber(1));
-        swIds.put(DeviceId.deviceId("device:s2"), PortNumber.portNumber(2));
-        swIds.put(DeviceId.deviceId("device:s3"), PortNumber.portNumber(3));
-        swIds.put(DeviceId.deviceId("device:s4"), PortNumber.portNumber(4));
+        swIds.put(DeviceId.deviceId("device:s0"), Pair.of(MacAddress.valueOf("AA:00:00:00:00:00"), 0));
+        swIds.put(DeviceId.deviceId("device:s1"), Pair.of(MacAddress.valueOf("11:00:00:00:00:00"), 0));
+        swIds.put(DeviceId.deviceId("device:s2"), Pair.of(MacAddress.valueOf("22:00:00:00:00:00"), 0));
+        swIds.put(DeviceId.deviceId("device:s3"), Pair.of(MacAddress.valueOf("33:00:00:00:00:00"), 0));
+        swIds.put(DeviceId.deviceId("device:s4"), Pair.of(MacAddress.valueOf("44:00:00:00:00:00"), 0));
     }
 }

@@ -1,5 +1,13 @@
 version: "3"
 
+volumes:
+  shared-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./records
+
 services:
   mininet:
     image: opennetworking/ngsdn-tutorial:stratum_bmv2
@@ -12,7 +20,7 @@ services:
     volumes:
       - ./tmp:/tmp
       - ./mininet:/mininet
-      - ./records:/records
+      - shared-data:/records
     ports:
       - "50001:50001"
       - "50002:50002"
@@ -31,6 +39,7 @@ services:
       - "8101:8101" # SSH (CLI)
     volumes:
       - ./tmp/onos:/root/onos/apache-karaf-4.2.8/data/tmp
+      - shared-data:/data
     environment:
       - ONOS_APPS=gui2,drivers.bmv2,lldpprovider,hostprovider
     links:

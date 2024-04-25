@@ -141,6 +141,10 @@ solution-revert:
 	cp -r working_copy/* ./
 	rm -rf working_copy/
 
+metric:
+	$(info *** Starting CPU metrics collection...)
+	@docker exec -d mininet python /records/top.py
+
 check:
 	make stop
 	make clean
@@ -154,6 +158,7 @@ check:
 	util/onos-cmd app activate lldpprovider
 	make netcfg
 	sleep 5
+	make metric
 	-util/mn-cmd h10 ping -c 1 192.168.1.3
 	-util/mn-cmd h10 ping -c 1 192.168.1.4
 	-util/mn-cmd h10 ping -c 1 192.168.1.5

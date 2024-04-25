@@ -16,3 +16,4 @@ ptf/ptf.pcap
 **/.settings
 **/.factorypath
 util/.pipe_cfg
+records/top.csv

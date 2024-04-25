@@ -8,7 +8,7 @@ class Records(scapy.Packet):
 
 
 class RecordData(scapy.Packet):
-    fields_desc = [scapy.ShortField("port", 0)]
+    fields_desc = [scapy.MACField("dpid", 0), scapy.ByteField("cpu", 0)]
 
 
 scapy.bind_layers(scapy.Ether, Records, type=TYPE_PROBE)
