@@ -4,6 +4,8 @@
 
 This document describes the steps to monitor the CPU utilization of a P4 switch using ONOS.
 
+Reference: [ONOS Ngsdn](https://github.com/opennetworkinglab/ngsdn-tutorial)
+
 ## Prerequisites
 
 - Docker
