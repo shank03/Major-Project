@@ -143,7 +143,7 @@ solution-revert:
 
 metric:
 	$(info *** Starting CPU metrics collection...)
-	@docker exec -d mininet python /records/top.py
+	@docker exec -d mininet python /records/metric.py
 
 check:
 	make stop

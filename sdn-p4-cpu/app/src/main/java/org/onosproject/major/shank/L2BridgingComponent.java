@@ -20,10 +20,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.onlab.packet.MacAddress;
 import org.onosproject.core.ApplicationId;
 import org.onosproject.mastership.MastershipService;
-import org.onosproject.net.ConnectPoint;
-import org.onosproject.net.DeviceId;
-import org.onosproject.net.Host;
-import org.onosproject.net.PortNumber;
+import org.onosproject.net.*;
 import org.onosproject.net.config.NetworkConfigService;
 import org.onosproject.net.device.DeviceEvent;
 import org.onosproject.net.device.DeviceListener;
@@ -175,6 +172,11 @@ public class L2BridgingComponent {
             return;
         }
 
+        if (!deviceId.equals(DeviceId.deviceId("device:s0"))) {
+            // Ports 4 and 5 are used only for congestion re-routing
+            ports = ports.stream().filter((p) -> p.toLong() != 4 && p.toLong() != 5).collect(Collectors.toSet());
+        }
+
         log.info("Adding L2 multicast group with {} ports on {}...",
                 ports, deviceId);
 
@@ -249,7 +251,7 @@ public class L2BridgingComponent {
      */
     private void learnHost(Host host, DeviceId deviceId, PortNumber port) {
         // ---- START SOLUTION ----
-        final String tableId = "IngressPipeImpl.l2_exact_table";
+
 
         // Match exactly on the host MAC address.
         final MacAddress hostMac = host.mac();
@@ -263,32 +265,38 @@ public class L2BridgingComponent {
             PortNumber dPort = p.getLeft();
             DeviceId dId = p.getRight();
 
-            log.info("Adding L2 unicast rule on {} for host {} (port {})...",
-                    dId, host.id(), dPort);
-
-            // Modify P4Runtime entity names to match content of P4Info file (look
-            // for the fully qualified name of tables, match fields, and actions.
-            final PiCriterion hostMacCriterion = PiCriterion.builder()
-                    .matchExact(PiMatchFieldId.of("hdr.ethernet.dst_addr"),
-                            hostMac.toBytes())
-                    .build();
-
-            // Action: set output port
-            final PiAction l2UnicastAction = PiAction.builder()
-                    .withId(PiActionId.of("IngressPipeImpl.set_egress_port"))
-                    .withParameter(new PiActionParam(
-                            PiActionParamId.of("port_num"),
-                            dPort.toLong()))
-                    .build();
-            // ---- END SOLUTION ----
-
-            // Forge flow rule.
-            final FlowRule rule = Utils.buildFlowRule(
-                    dId, appId, tableId, hostMacCriterion, l2UnicastAction);
-
-            // Insert.
-            flowRuleService.applyFlowRules(rule);
+            updateFlowRule(flowRuleService, log, dId, host, dPort, appId);
         });
+    }
+
+    public static void updateFlowRule(FlowRuleService flowRuleService, Logger log, DeviceId deviceId, Host host, PortNumber port, ApplicationId appId) {
+        final String tableId = "IngressPipeImpl.l2_exact_table";
+
+        log.info("Updating L2 unicast rule on {} for host {} (port {})...",
+                deviceId, host.id(), port);
+
+        // Modify P4Runtime entity names to match content of P4Info file (look
+        // for the fully qualified name of tables, match fields, and actions.
+        final PiCriterion hostMacCriterion = PiCriterion.builder()
+                .matchExact(PiMatchFieldId.of("hdr.ethernet.dst_addr"),
+                        host.mac().toBytes())
+                .build();
+
+        // Action: set output port
+        final PiAction l2UnicastAction = PiAction.builder()
+                .withId(PiActionId.of("IngressPipeImpl.set_egress_port"))
+                .withParameter(new PiActionParam(
+                        PiActionParamId.of("port_num"),
+                        port.toLong()))
+                .build();
+        // ---- END SOLUTION ----
+
+        // Forge flow rule.
+        final FlowRule rule = Utils.buildFlowRule(
+                deviceId, appId, tableId, hostMacCriterion, l2UnicastAction);
+
+        // Insert.
+        flowRuleService.applyFlowRules(rule);
     }
 
     //--------------------------------------------------------------------------

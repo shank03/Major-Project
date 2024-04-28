@@ -30,6 +30,7 @@ import org.onosproject.net.config.NetworkConfigService;
 import org.onosproject.net.device.DeviceEvent;
 import org.onosproject.net.device.DeviceListener;
 import org.onosproject.net.device.DeviceService;
+import org.onosproject.net.device.PortStatistics;
 import org.onosproject.net.flow.*;
 import org.onosproject.net.flow.criteria.Criterion;
 import org.onosproject.net.flow.criteria.PiCriterion;
@@ -53,6 +54,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -116,6 +121,8 @@ public class MetricsComponent {
     private final HashMap<DeviceId, Pair<MacAddress, Integer>> swIds = new HashMap<>();
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
+    private DatagramSocket socket;
+
     @Activate
     protected void activate() {
         appId = mainComponent.getAppId();
@@ -126,31 +133,14 @@ public class MetricsComponent {
         // Schedule set up of existing devices. Needed when reloading the app.
         mainComponent.scheduleTask(this::setUpAllDevices, INITIAL_SETUP_DELAY);
 
-        executorService.execute(() -> {
-            while (true) {
-                try {
-                    BufferedReader br = new BufferedReader(new FileReader("/data/top.csv"));
-                    StringBuilder output = new StringBuilder();
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        String[] recs = line.split(",");
+        try {
+            socket = new DatagramSocket(4445);
+            log.info("Listening for metrics on port {}", socket.getLocalPort());
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        }
 
-                        DeviceId deviceId = DeviceId.deviceId(recs[0]);
-                        Pair<MacAddress, Integer> metric = swIds.get(deviceId);
-                        if (metric != null) {
-                            swIds.put(deviceId, Pair.of(metric.getLeft(), Integer.parseInt(recs[2])));
-                            setUpDevice(deviceId);
-                        }
-                    }
-                    br.close();
-
-                    Thread.sleep(1000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    break;
-                }
-            }
-        });
+        executorService.execute(this::metricListener);
 
         log.info("Started");
     }
@@ -182,7 +172,7 @@ public class MetricsComponent {
             metric = Pair.of(MacAddress.valueOf("FF:FF:FF:FF:FF:FF"), 0);
         }
 
-        log.info("Updating metric rule for {} with {}; {}", deviceId, metric.getLeft(), metric.getRight());
+        log.info("Updating metric rule for {} with {}", deviceId, metric.getRight());
 
         final PiCriterion hostMacCriterion = PiCriterion.builder()
                 .matchExact(
@@ -210,6 +200,49 @@ public class MetricsComponent {
 
         // Insert.
         flowRuleService.applyFlowRules(rule);
+    }
+
+    private void metricListener() {
+        while (true) {
+            try {
+                Thread.sleep(50);
+
+                byte[] buffer = new byte[255];
+                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+                socket.receive(packet);
+
+//                int port = packet.getPort();
+//                log.info("Received packet from port {}", port);
+
+                String[] fields = toData(packet.getData()).split(",");
+                DeviceId deviceId = DeviceId.deviceId(fields[0]);
+                int cpuInfo = Math.min(250, Integer.parseInt(fields[1]));
+
+                Pair<MacAddress, Integer> metric = swIds.get(deviceId);
+                if (metric == null) {
+                    continue;
+                }
+                swIds.put(deviceId, Pair.of(metric.getLeft(), cpuInfo));
+
+                setUpDevice(deviceId);
+            } catch (Exception e) {
+                log.error("Error while parsing metric", e);
+                break;
+            }
+        }
+    }
+
+    private String toData(byte[] buff) {
+        StringBuilder builder = new StringBuilder();
+        for (byte b : buff) {
+            if (b == 0) continue;
+            builder.append((char) b);
+        }
+        return builder.toString();
+    }
+
+    private void updateCongestionFlows(List<Pair<DeviceId, Integer>> swCPU) {
+
     }
 
     //--------------------------------------------------------------------------

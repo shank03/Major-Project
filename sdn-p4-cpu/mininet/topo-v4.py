@@ -75,6 +75,11 @@ class CustomTopo(Topo):
         self.addLink(s0, s2, port1=2, port2=3)
         self.addLink(s0, s3, port1=3, port2=3)
         self.addLink(s0, s4, port1=4, port2=3)
+        
+        self.addLink(s1, s2, port1=5, port2=4)
+        self.addLink(s2, s3, port1=5, port2=4)
+        self.addLink(s3, s4, port1=5, port2=4)
+        self.addLink(s4, s1, port1=5, port2=4)
 
 
 def main():

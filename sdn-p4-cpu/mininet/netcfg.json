@@ -126,6 +126,20 @@
                 }
             ]
         },
+        "device:s1/4": {
+            "interfaces": [
+                {
+                    "name": "s1-eth4"
+                }
+            ]
+        },
+        "device:s1/5": {
+            "interfaces": [
+                {
+                    "name": "s1-eth5"
+                }
+            ]
+        },
         "device:s2/1": {
             "interfaces": [
                 {
@@ -144,6 +158,20 @@
             "interfaces": [
                 {
                     "name": "s2-eth3"
+                }
+            ]
+        },
+        "device:s2/4": {
+            "interfaces": [
+                {
+                    "name": "s2-eth4"
+                }
+            ]
+        },
+        "device:s2/5": {
+            "interfaces": [
+                {
+                    "name": "s2-eth5"
                 }
             ]
         },
@@ -168,6 +196,20 @@
                 }
             ]
         },
+        "device:s3/4": {
+            "interfaces": [
+                {
+                    "name": "s3-eth4"
+                }
+            ]
+        },
+        "device:s3/5": {
+            "interfaces": [
+                {
+                    "name": "s3-eth5"
+                }
+            ]
+        },
         "device:s4/1": {
             "interfaces": [
                 {
@@ -186,6 +228,20 @@
             "interfaces": [
                 {
                     "name": "s4-eth3"
+                }
+            ]
+        },
+        "device:s4/4": {
+            "interfaces": [
+                {
+                    "name": "s4-eth4"
+                }
+            ]
+        },
+        "device:s4/5": {
+            "interfaces": [
+                {
+                    "name": "s4-eth5"
                 }
             ]
         }
