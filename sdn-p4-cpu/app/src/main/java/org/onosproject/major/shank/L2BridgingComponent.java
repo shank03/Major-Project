@@ -113,7 +113,7 @@ public class L2BridgingComponent {
     // activate()/deactivate().
     //--------------------------------------------------------------------------
 
-    private final HashMap<MacAddress, List<Pair<PortNumber, DeviceId>>> deviceFlows = new HashMap<>();
+    public static final HashMap<MacAddress, List<Pair<PortNumber, DeviceId>>> deviceFlows = new HashMap<>();
 
     @Activate
     protected void activate() {
@@ -245,14 +245,9 @@ public class L2BridgingComponent {
      * ONOS, and every time a new host-added event is captured by the
      * InternalHostListener defined below.
      *
-     * @param host     host instance
-     * @param deviceId device where the host is located
-     * @param port     port where the host is attached to
+     * @param host host instance
      */
-    private void learnHost(Host host, DeviceId deviceId, PortNumber port) {
-        // ---- START SOLUTION ----
-
-
+    private void learnHost(Host host) {
         // Match exactly on the host MAC address.
         final MacAddress hostMac = host.mac();
 
@@ -265,21 +260,20 @@ public class L2BridgingComponent {
             PortNumber dPort = p.getLeft();
             DeviceId dId = p.getRight();
 
-            updateFlowRule(flowRuleService, log, dId, host, dPort, appId);
+            log.info("Adding L2 unicast rule on {} for host {} (port {})...",
+                    dId, host.id(), dPort);
+            updateFlowRule(flowRuleService, dId, hostMac, dPort, appId);
         });
     }
 
-    public static void updateFlowRule(FlowRuleService flowRuleService, Logger log, DeviceId deviceId, Host host, PortNumber port, ApplicationId appId) {
+    public static void updateFlowRule(FlowRuleService flowRuleService, DeviceId srcDeviceId, MacAddress dstHostMac, PortNumber port, ApplicationId appId) {
         final String tableId = "IngressPipeImpl.l2_exact_table";
-
-        log.info("Updating L2 unicast rule on {} for host {} (port {})...",
-                deviceId, host.id(), port);
 
         // Modify P4Runtime entity names to match content of P4Info file (look
         // for the fully qualified name of tables, match fields, and actions.
         final PiCriterion hostMacCriterion = PiCriterion.builder()
                 .matchExact(PiMatchFieldId.of("hdr.ethernet.dst_addr"),
-                        host.mac().toBytes())
+                        dstHostMac.toBytes())
                 .build();
 
         // Action: set output port
@@ -293,7 +287,7 @@ public class L2BridgingComponent {
 
         // Forge flow rule.
         final FlowRule rule = Utils.buildFlowRule(
-                deviceId, appId, tableId, hostMacCriterion, l2UnicastAction);
+                srcDeviceId, appId, tableId, hostMacCriterion, l2UnicastAction);
 
         // Insert.
         flowRuleService.applyFlowRules(rule);
@@ -382,7 +376,7 @@ public class L2BridgingComponent {
                 log.info("{} event! host={}, deviceId={}, port={}",
                         event.type(), host.id(), deviceId, port);
 
-                learnHost(host, deviceId, port);
+                learnHost(host);
             });
         }
     }
@@ -399,17 +393,6 @@ public class L2BridgingComponent {
      * @return set of host facing ports
      */
     private Set<PortNumber> getHostFacingPorts(DeviceId deviceId) {
-        // Get all interfaces configured via netcfg for the given device ID and
-        // return the corresponding device port number. Interface configuration
-        // in the netcfg.json looks like this:
-        // "device:leaf1/3": {
-        //   "interfaces": [
-        //     {
-        //       "name": "leaf1-3",
-        //       "ips": ["2001:1:1::ff/64"]
-        //     }
-        //   ]
-        // }
         return interfaceService.getInterfaces().stream()
                 .map(Interface::connectPoint)
                 .filter(cp -> cp.deviceId().equals(deviceId))
@@ -417,33 +400,8 @@ public class L2BridgingComponent {
                 .collect(Collectors.toSet());
     }
 
-    /**
-     * Returns true if the given device is defined as a spine in the
-     * netcfg.json.
-     *
-     * @param deviceId device ID
-     * @return true if spine, false otherwise
-     */
-    private boolean isSpine(DeviceId deviceId) {
-        // Example netcfg defining a device as spine:
-        // "devices": {
-        //   "device:spine1": {
-        //     ...
-        //     "fabricDeviceConfig": {
-        //       "myStationMac": "...",
-        //       "mySid": "...",
-        //       "isSpine": true
-        //     }
-        //   },
-        //   ...
-        final FabricDeviceConfig cfg = configService.getConfig(
-                deviceId, FabricDeviceConfig.class);
-        return cfg != null && cfg.isSpine();
-    }
-
     private int getBroadcastGroupIdFromDeviceId(DeviceId deviceId) {
-        String id = deviceId.toString();
-        return DEFAULT_BROADCAST_GROUP_ID - Integer.parseInt(id.substring(id.length() - 1));
+        return DEFAULT_BROADCAST_GROUP_ID - Utils.getSwitchIdFromDeviceId(deviceId);
     }
 
     /**
@@ -460,9 +418,7 @@ public class L2BridgingComponent {
                 log.info("*** L2 BRIDGING - Starting initial set up for {}...", device.id());
                 setUpDevice(device.id());
                 // For all hosts connected to this device...
-                hostService.getConnectedHosts(device.id()).forEach(
-                        host -> learnHost(host, host.location().deviceId(),
-                                host.location().port()));
+                hostService.getConnectedHosts(device.id()).forEach(this::learnHost);
             }
         });
     }

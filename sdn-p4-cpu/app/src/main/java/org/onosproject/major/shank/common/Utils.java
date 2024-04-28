@@ -16,6 +16,7 @@
 
 package org.onosproject.major.shank.common;
 
+import org.onlab.packet.MacAddress;
 import org.onosproject.core.ApplicationId;
 import org.onosproject.major.shank.AppConstants;
 import org.onosproject.net.DeviceId;
@@ -108,9 +109,9 @@ public final class Utils {
                 .withPriority(AppConstants.DEFAULT_FLOW_RULE_PRIORITY)
                 .makePermanent()
                 .withSelector(DefaultTrafficSelector.builder()
-                                      .matchPi(piCriterion).build())
+                        .matchPi(piCriterion).build())
                 .withTreatment(DefaultTrafficTreatment.builder()
-                                       .piTableAction(piAction).build())
+                        .piTableAction(piAction).build())
                 .build();
     }
 
@@ -144,5 +145,20 @@ public final class Utils {
             log.error("Interrupted!", e);
             Thread.currentThread().interrupt();
         }
+    }
+
+    public static String getHostId(int macInt) {
+        int multiple = (macInt + 1) / 2;
+        boolean odd = macInt % 2 == 1;
+        return "h" + multiple + (odd ? 0 : 1);
+    }
+
+    public static int getSwitchIdFromHostMac(MacAddress hostMac) {
+        return ((int) hostMac.toString().charAt(13) - 47) / 2;
+    }
+
+    public static int getSwitchIdFromDeviceId(DeviceId deviceId) {
+        String id = deviceId.toString();
+        return Integer.parseInt(id.substring(id.length() - 1));
     }
 }

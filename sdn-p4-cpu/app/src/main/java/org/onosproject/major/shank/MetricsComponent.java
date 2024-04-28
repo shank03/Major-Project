@@ -18,49 +18,35 @@ package org.onosproject.major.shank;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.onlab.packet.MacAddress;
-import org.onlab.util.SharedScheduledExecutors;
 import org.onosproject.core.ApplicationId;
 import org.onosproject.major.shank.common.Utils;
 import org.onosproject.mastership.MastershipService;
-import org.onosproject.net.Device;
 import org.onosproject.net.DeviceId;
-import org.onosproject.net.Host;
 import org.onosproject.net.PortNumber;
 import org.onosproject.net.config.NetworkConfigService;
 import org.onosproject.net.device.DeviceEvent;
 import org.onosproject.net.device.DeviceListener;
 import org.onosproject.net.device.DeviceService;
-import org.onosproject.net.device.PortStatistics;
 import org.onosproject.net.flow.*;
-import org.onosproject.net.flow.criteria.Criterion;
 import org.onosproject.net.flow.criteria.PiCriterion;
 import org.onosproject.net.group.GroupService;
-import org.onosproject.net.host.HostEvent;
-import org.onosproject.net.host.HostListener;
-import org.onosproject.net.host.HostService;
 import org.onosproject.net.intf.InterfaceService;
 import org.onosproject.net.pi.model.PiActionId;
 import org.onosproject.net.pi.model.PiActionParamId;
 import org.onosproject.net.pi.model.PiMatchFieldId;
-import org.onosproject.net.pi.model.PiTableId;
 import org.onosproject.net.pi.runtime.PiAction;
 import org.onosproject.net.pi.runtime.PiActionParam;
 import org.osgi.service.component.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.crypto.Mac;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.SocketException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -119,6 +105,7 @@ public class MetricsComponent {
     //--------------------------------------------------------------------------
 
     private final HashMap<DeviceId, Pair<MacAddress, Integer>> swIds = new HashMap<>();
+    private final int[][] swPorts = new int[5][5];
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     private DatagramSocket socket;
@@ -223,8 +210,9 @@ public class MetricsComponent {
                     continue;
                 }
                 swIds.put(deviceId, Pair.of(metric.getLeft(), cpuInfo));
-
                 setUpDevice(deviceId);
+
+                updateCongestionFlows();
             } catch (Exception e) {
                 log.error("Error while parsing metric", e);
                 break;
@@ -241,15 +229,134 @@ public class MetricsComponent {
         return builder.toString();
     }
 
+    private static final int INF = 511;
+
     private void updateCongestionFlows() {
-        
+        boolean applyCongestionFlow = false;
+        int[] swm = new int[5];
+        for (Map.Entry<DeviceId, Pair<MacAddress, Integer>> entry : swIds.entrySet()) {
+            String id = entry.getKey().toString();
+            Pair<MacAddress, Integer> metric = entry.getValue();
+            swm[Integer.parseInt(id.substring(id.length() - 1))] = metric.getRight();
+            applyCongestionFlow = applyCongestionFlow || metric.getRight() > 80;
+        }
+
+        if (!applyCongestionFlow) {
+            L2BridgingComponent.deviceFlows
+                    .forEach((hostMac, flows) ->
+                            flows.forEach((p) ->
+                                    L2BridgingComponent.updateFlowRule(
+                                            flowRuleService,
+                                            p.getRight(),
+                                            hostMac,
+                                            p.getLeft(),
+                                            appId
+                                    )
+                            )
+                    );
+            return;
+        }
+
+        FloydWarshallNetwork network = getNetwork(swm);
+
+        L2BridgingComponent.deviceFlows.forEach((hostMac, flows) -> {
+            int dst = Utils.getSwitchIdFromHostMac(hostMac);
+            if (dst == 0) return;
+            flows.forEach((p) -> {
+                int src = Utils.getSwitchIdFromDeviceId(p.getRight());
+                if (src == 0) return;
+                if (src == dst) return;
+
+                Vector<Integer> path = network.getPath(src, dst);
+                if (path == null || path.size() < 3) {
+                    return;
+                }
+
+                for (int i = 0; i < path.size() - 1; i++) {
+                    Integer sw = path.get(i);
+                    Integer swNext = path.get(i + 1);
+
+                    L2BridgingComponent.updateFlowRule(
+                            flowRuleService,
+                            DeviceId.deviceId("device:s" + sw),
+                            hostMac,
+                            PortNumber.portNumber(swPorts[sw][swNext]),
+                            appId
+                    );
+                }
+            });
+        });
     }
 
-    //--------------------------------------------------------------------------
-    // EVENT LISTENERS
-    //
-    // Events are processed only if isRelevant() returns true.
-    //--------------------------------------------------------------------------
+    private static FloydWarshallNetwork getNetwork(int[] swm) {
+        FloydWarshallNetwork network = new FloydWarshallNetwork(
+                new int[][]{
+                        //       0,     1,      2,      3,      4
+                        /* 0 */ {0, swm[1], swm[2], swm[3], swm[4]},
+                        /* 1 */ {swm[0], 0, swm[2], INF, swm[4]},
+                        /* 2 */ {swm[0], swm[1], 0, swm[3], INF},
+                        /* 3 */ {swm[0], INF, swm[2], 0, swm[4]},
+                        /* 4 */ {swm[0], swm[1], INF, swm[3], 0},
+                }
+        );
+        network.compute();
+        return network;
+    }
+
+    static class FloydWarshallNetwork {
+        private static final int MAX_N = 5;
+
+        private final int[][] graph = new int[MAX_N][MAX_N];
+        private final int[][] subSeq = new int[MAX_N][MAX_N];
+
+        int V;
+
+        FloydWarshallNetwork(int[][] graph) {
+            V = graph.length;
+            for (int i = 0; i < V; i++) {
+                for (int j = 0; j < V; j++) {
+                    this.graph[i][j] = graph[i][j];
+                    subSeq[i][j] = this.graph[i][j] == INF ? -1 : j;
+                }
+            }
+        }
+
+        void compute() {
+            for (int k = 0; k < V; k++) {
+                for (int i = 0; i < V; i++) {
+                    for (int j = 0; j < V; j++) {
+                        if (graph[i][k] == INF || graph[k][j] == INF) {
+                            continue;
+                        }
+                        if (graph[i][j] > graph[i][k] + graph[k][j]) {
+                            graph[i][j] = graph[i][k] + graph[k][j];
+                            subSeq[i][j] = subSeq[i][k];
+                        }
+                    }
+                }
+            }
+        }
+
+        Vector<Integer> getPath(int u, int v) {
+            if (subSeq[u][v] == -1) {
+                return new Vector<>();
+            }
+
+            Vector<Integer> path = new Vector<>();
+            path.add(u);
+            while (u != v) {
+                u = subSeq[u][v];
+                path.add(u);
+            }
+            return path;
+        }
+    }
+
+//--------------------------------------------------------------------------
+// EVENT LISTENERS
+//
+// Events are processed only if isRelevant() returns true.
+//--------------------------------------------------------------------------
 
     /**
      * Listener of device events.
@@ -290,9 +397,9 @@ public class MetricsComponent {
         }
     }
 
-    //--------------------------------------------------------------------------
-    // UTILITY METHODS
-    //--------------------------------------------------------------------------
+//--------------------------------------------------------------------------
+// UTILITY METHODS
+//--------------------------------------------------------------------------
 
     /**
      * Sets up L2 bridging on all devices known by ONOS and for which this ONOS
@@ -315,5 +422,26 @@ public class MetricsComponent {
         swIds.put(DeviceId.deviceId("device:s2"), Pair.of(MacAddress.valueOf("22:00:00:00:00:00"), 0));
         swIds.put(DeviceId.deviceId("device:s3"), Pair.of(MacAddress.valueOf("33:00:00:00:00:00"), 0));
         swIds.put(DeviceId.deviceId("device:s4"), Pair.of(MacAddress.valueOf("44:00:00:00:00:00"), 0));
+
+        swPorts[0][1] = 1;
+        swPorts[0][2] = 2;
+        swPorts[0][3] = 3;
+        swPorts[0][4] = 4;
+
+        swPorts[1][0] = 3;
+        swPorts[1][2] = 5;
+        swPorts[1][4] = 4;
+
+        swPorts[2][0] = 3;
+        swPorts[2][1] = 4;
+        swPorts[2][3] = 5;
+
+        swPorts[3][0] = 3;
+        swPorts[3][2] = 4;
+        swPorts[3][4] = 5;
+
+        swPorts[4][0] = 3;
+        swPorts[4][1] = 5;
+        swPorts[4][3] = 4;
     }
 }

@@ -150,7 +150,7 @@ check:
 	make clean
 	make app-build
 	make start
-	sleep 45
+	sleep 60
 	make app-reload
 	sleep 10
 	util/onos-cmd app activate proxyarp
@@ -158,7 +158,6 @@ check:
 	util/onos-cmd app activate lldpprovider
 	make netcfg
 	sleep 5
-	make metric
 	-util/mn-cmd h10 ping -c 1 192.168.1.3
 	-util/mn-cmd h10 ping -c 1 192.168.1.4
 	-util/mn-cmd h10 ping -c 1 192.168.1.5
@@ -166,3 +165,4 @@ check:
 	-util/mn-cmd h10 ping -c 1 192.168.1.7
 	-util/mn-cmd h10 ping -c 1 192.168.1.8
 	-util/mn-cmd h10 ping -c 1 192.168.1.9
+	make metric
