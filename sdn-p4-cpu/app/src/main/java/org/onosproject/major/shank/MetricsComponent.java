@@ -241,8 +241,8 @@ public class MetricsComponent {
         return builder.toString();
     }
 
-    private void updateCongestionFlows(List<Pair<DeviceId, Integer>> swCPU) {
-
+    private void updateCongestionFlows() {
+        
     }
 
     //--------------------------------------------------------------------------
