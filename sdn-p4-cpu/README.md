@@ -3,6 +3,7 @@
 ## Introduction
 
 This document describes the steps to monitor the CPU utilization of a P4 switch using ONOS.
+Additionally re-routing the packets based on the CPU utilization of the switch using Floyd Warshall algorithm.
 
 Reference: [ONOS Ngsdn](https://github.com/opennetworkinglab/ngsdn-tutorial)
 
