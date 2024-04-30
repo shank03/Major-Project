@@ -45,7 +45,7 @@ while True:
                 (UDP_IP, UDP_PORT),
             )
 
-        time.sleep(0.5)
+        time.sleep(0.01)
     except KeyboardInterrupt:
         for s in switches:
             sockets[s].close()

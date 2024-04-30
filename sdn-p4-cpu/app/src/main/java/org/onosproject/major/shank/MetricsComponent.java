@@ -159,7 +159,7 @@ public class MetricsComponent {
             metric = Pair.of(MacAddress.valueOf("FF:FF:FF:FF:FF:FF"), 0);
         }
 
-        log.info("Updating metric rule for {} with {}", deviceId, metric.getRight());
+//        log.info("Updating metric rule for {} with {}", deviceId, metric.getRight());
 
         final PiCriterion hostMacCriterion = PiCriterion.builder()
                 .matchExact(
@@ -192,8 +192,6 @@ public class MetricsComponent {
     private void metricListener() {
         while (true) {
             try {
-                Thread.sleep(50);
-
                 byte[] buffer = new byte[255];
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                 socket.receive(packet);
@@ -212,7 +210,7 @@ public class MetricsComponent {
                 swIds.put(deviceId, Pair.of(metric.getLeft(), cpuInfo));
                 setUpDevice(deviceId);
 
-                updateCongestionFlows();
+//                updateCongestionFlows();
             } catch (Exception e) {
                 log.error("Error while parsing metric", e);
                 break;
