@@ -15,5 +15,7 @@ x-*
 **/pcaps
 **/*.o
 **/*.so
+**/*.csv
+**/*.png
 
 **/**/.DS_Store
