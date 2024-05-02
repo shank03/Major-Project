@@ -10,11 +10,12 @@
             "action_params": {}
         },
         {
-            "table": "L2_Egress.swid",
+            "table": "L2_Egress.sw_metrics",
             "default_action": true,
-            "action_name": "L2_Egress.set_swid",
+            "action_name": "L2_Egress.set_metrics",
             "action_params": {
-                "dpid": 0
+                "dpid": "AA:00:00:00:00:00",
+                "sw": 0
             }
         },
         {

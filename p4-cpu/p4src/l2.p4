@@ -1,9 +1,11 @@
 #include <core.p4>
 #include <v1model.p4>
 
+#include "extern/cpu.p4"
+
 #define MAX_REC 5
 
-const bit<16> TYPE_PROBE = 0x819;
+const bit<16> TYPE_REC = 0x819;
 
 typedef bit<9> egress_spec_t;
 typedef bit<32> ip4Addr_t;
@@ -20,7 +22,8 @@ header records_t {
 }
 
 header record_data_t {
-    bit<16> port;
+    macAddr_t dpid;
+    bit<8> cpu;
 }
 
 struct parse_data_t {
@@ -28,7 +31,6 @@ struct parse_data_t {
 }
 
 struct metadata {
-    /* empty */
     parse_data_t parse_data;
 }
 
@@ -47,7 +49,7 @@ parser L2_Parser(packet_in packet, out headers hdr, inout metadata meta, inout s
     state parse_ethernet {
         packet.extract(hdr.ethernet);
         transition select (hdr.ethernet.etherType) {
-            TYPE_PROBE: parse_record;
+            TYPE_REC: parse_record;
             default: accept;
         }
     }
@@ -112,13 +114,14 @@ control L2_Ingress(inout headers hdr, inout metadata meta, inout standard_metada
 
 control L2_Egress(inout headers hdr, inout metadata meta, inout standard_metadata_t standard_metadata) {
 
-    action set_swid(bit<16> dpid) {
-        hdr.data[0].port = dpid;
+    action set_metrics(macAddr_t dpid, bit<8> sw) {
+        hdr.data[0].dpid = dpid;
+        set_cpu(hdr.data[0].cpu, sw);
     }
 
-    table swid {
+    table sw_metrics {
         actions = {
-            set_swid;
+            set_metrics;
             NoAction;
         }
         default_action = NoAction;
@@ -128,7 +131,7 @@ control L2_Egress(inout headers hdr, inout metadata meta, inout standard_metadat
         if (hdr.records.isValid()) {
             hdr.data.push_front(1);
             hdr.data[0].setValid();
-            swid.apply();
+            sw_metrics.apply();
             hdr.records.records = hdr.records.records + 1;
         }
     }

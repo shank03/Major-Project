@@ -12,7 +12,7 @@ def handle_pkt(pkt):
         data_layers = [l for l in expand(pkt) if l.name == "RecordData"]
         print("")
         for sw in data_layers:
-            print(sw.port)
+            print(f"dpid: {sw.dpid}; cpu: {sw.cpu}")
 
 
 def main():

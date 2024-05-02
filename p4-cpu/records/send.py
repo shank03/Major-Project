@@ -12,7 +12,7 @@ def main():
     while True:
         try:
             scapy.sendp(pkt, iface="eth0")
-            time.sleep(1)
+            time.sleep(0.1)
         except KeyboardInterrupt:
             sys.exit()
 
