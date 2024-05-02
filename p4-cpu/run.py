@@ -52,14 +52,13 @@ class Runner:
         for h in self.net.hosts:
             h.describe()
 
-        # os.system("sudo ./udps &")
+        f = open("records/cpu.csv", "w")
+        f.write("")
+        f.close()
 
         print("Starting mininet CLI")
         CLI(self.net)
         self.net.stop()
-
-        print("\n==== CLEANING ====\n")
-        os.system("mn -c")
 
     def configure_topo(self):
         topo = Topo()

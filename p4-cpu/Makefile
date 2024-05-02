@@ -16,3 +16,5 @@ run:
 	make extern
 	make p4
 	python3 run.py
+	mn -c
+	python3 records/graph.py

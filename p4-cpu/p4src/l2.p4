@@ -24,6 +24,7 @@ header records_t {
 header record_data_t {
     macAddr_t dpid;
     bit<8> cpu;
+    bit<64> timestamp;
 }
 
 struct parse_data_t {
@@ -117,6 +118,7 @@ control L2_Egress(inout headers hdr, inout metadata meta, inout standard_metadat
     action set_metrics(macAddr_t dpid, bit<8> sw) {
         hdr.data[0].dpid = dpid;
         set_cpu(hdr.data[0].cpu, sw);
+        hdr.data[0].timestamp = (bit<64>)standard_metadata.egress_global_timestamp;
     }
 
     table sw_metrics {
