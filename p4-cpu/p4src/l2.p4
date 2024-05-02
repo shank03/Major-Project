@@ -1,7 +1,7 @@
 #include <core.p4>
 #include <v1model.p4>
 
-#include "extern/cpu.p4"
+#include "../extern/cpu.p4"
 
 #define MAX_REC 5
 
