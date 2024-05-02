@@ -39,6 +39,7 @@ class P4RuntimeSwitch(P4Switch):
                  device_id = None,
                  enable_debugger = False,
                  log_file = None,
+                 modules = None,
                  **kwargs):
         Switch.__init__(self, name, **kwargs)
         assert (sw_path)
@@ -54,6 +55,10 @@ class P4RuntimeSwitch(P4Switch):
             self.json_path = json_path
         else:
             self.json_path = None
+
+        self.modules: list[str] = []
+        if modules is not None:
+            self.modules = modules
 
         if grpc_port is not None:
             self.grpc_port = grpc_port
@@ -89,7 +94,6 @@ class P4RuntimeSwitch(P4Switch):
             P4Switch.device_id += 1
         self.nanomsg = "ipc:///tmp/bm-{}-log.ipc".format(self.device_id)
 
-
     def check_switch_started(self, pid):
         for _ in range(SWITCH_START_TIMEOUT * 2):
             if not os.path.exists(os.path.join("/proc", str(pid))):
@@ -122,9 +126,10 @@ class P4RuntimeSwitch(P4Switch):
             args.append('--thrift-port ' + str(self.thrift_port))
         if self.grpc_port:
             args.append("-- --grpc-server-addr 0.0.0.0:" + str(self.grpc_port))
+        if self.modules:
+            args.append(" --load-modules=" + ",".join(self.modules))
         cmd = ' '.join(args)
         info(cmd + "\n")
-
 
         pid = None
         with tempfile.NamedTemporaryFile() as f:
@@ -135,4 +140,3 @@ class P4RuntimeSwitch(P4Switch):
             error("P4 switch {} did not start correctly.\n".format(self.name))
             exit(1)
         info("P4 switch {} has been started.\n".format(self.name))
-
