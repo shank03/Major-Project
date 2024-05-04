@@ -7,7 +7,7 @@ print("CSV contents: ", df)
 plt.figure(figsize=(14, 7))
 
 for switch, data in df.groupby("Switch"):
-    plt.plot(data["Timestamp"], data["CPU"], linestyle='solid', marker='o', label=switch)
+    plt.plot(data["Timestamp"], data["CPU"], linestyle='solid', marker='.', label=switch)
 
 plt.xlabel("Time in milliseconds")
 plt.ylabel("CPU Usage in %")
