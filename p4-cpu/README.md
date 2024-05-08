@@ -57,11 +57,11 @@ Hosts: 8
     ```
 - In `h10` terminal, run the following command
     ```bash
-    python records/send.py h10-eth0 00:00:00:00:05:00
+    python records/send.py eth0 00:00:00:00:05:00
     ```
 - In `h30` terminal, run the following command
     ```bash
-    python records/receive.py h30-eth0
+    python records/receive.py
     ```
     You should be able to see the packets received in `h30` terminal.
 - Now open mininet cli in another terminal and run the following command

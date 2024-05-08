@@ -9,4 +9,4 @@
 
 ### 8th Semester Major Project
 
-- [sdn-p4-cpu](sdn-p4-cpu)
+- [p4-cpu](p4-cpu)

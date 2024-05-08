@@ -12,7 +12,7 @@ int  cpu_sw[1];
 
 int get_cpu_sw(int id) {
     char cmd[256];
-    sprintf(cmd, "top -bcn1 -d 0 -w512 | awk '/simple_switch/' | awk '/s%d/ {print $9}'", id);
+    sprintf(cmd, "top -bcn1 -d 0 -w512 | awk '/simple_switch_grpc/' | awk '/s%d/ {print $9}'", id);
 
     auto *pipe = popen((char *) cmd, "r");
     if (pipe == nullptr) {
@@ -44,7 +44,7 @@ int get_cpu_usage(int id) {
         }).detach();
     }
 
-    return id >= 0 && id <= 5 ? cpu_sw[0] : 0;
+    return id >= 0 && id <= 4 ? cpu_sw[0] : 0;
 }
 
 void set_cpu(bm::Data &hdr, const bm::Data &sw) {
