@@ -39,7 +39,7 @@ int get_cpu_usage(int id) {
             cpu_sw[0] = 0;
             while (true) {
                 cpu_sw[0] = get_cpu_sw(id);
-                std::this_thread::sleep_for(std::chrono::nanoseconds(100));
+                std::this_thread::sleep_for(std::chrono::nanoseconds(1));
             }
         }).detach();
     }
