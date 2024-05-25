@@ -153,9 +153,9 @@ check:
 	sleep 60
 	make app-reload
 	sleep 10
-	util/onos-cmd app activate proxyarp
-	util/onos-cmd app activate hostprovider
-	util/onos-cmd app activate lldpprovider
+	# util/onos-cmd app activate proxyarp
+	# util/onos-cmd app activate hostprovider
+	# util/onos-cmd app activate lldpprovider
 	make netcfg
 	sleep 5
 	-util/mn-cmd h10 ping -c 1 192.168.1.3

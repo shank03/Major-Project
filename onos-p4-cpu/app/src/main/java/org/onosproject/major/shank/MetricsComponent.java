@@ -22,6 +22,7 @@ import org.onosproject.core.ApplicationId;
 import org.onosproject.major.shank.common.Utils;
 import org.onosproject.mastership.MastershipService;
 import org.onosproject.net.DeviceId;
+import org.onosproject.net.Host;
 import org.onosproject.net.PortNumber;
 import org.onosproject.net.config.NetworkConfigService;
 import org.onosproject.net.device.DeviceEvent;
@@ -59,7 +60,8 @@ import static org.onosproject.major.shank.AppConstants.INITIAL_SETUP_DELAY;
         immediate = true,
         // *** TODO EXERCISE 4
         // Enable component (enabled = true)
-        enabled = true
+        enabled = true,
+        service = MetricsComponent.class
 )
 public class MetricsComponent {
 
@@ -97,6 +99,9 @@ public class MetricsComponent {
     @Reference(cardinality = ReferenceCardinality.MANDATORY)
     private MainComponent mainComponent;
 
+    @Reference(cardinality = ReferenceCardinality.MANDATORY)
+    private L2BridgingComponent l2BridgingComponent;
+
     //--------------------------------------------------------------------------
     // COMPONENT ACTIVATION.
     //
@@ -123,11 +128,10 @@ public class MetricsComponent {
         try {
             socket = new DatagramSocket(4445);
             log.info("Listening for metrics on port {}", socket.getLocalPort());
+            executorService.execute(this::metricListener);
         } catch (SocketException e) {
             throw new RuntimeException(e);
         }
-
-        executorService.execute(this::metricListener);
 
         log.info("Started");
     }
@@ -164,7 +168,7 @@ public class MetricsComponent {
         final PiCriterion hostMacCriterion = PiCriterion.builder()
                 .matchExact(
                         PiMatchFieldId.of("hdr.ethernet.ether_type"),
-                        AppConstants.ETHER_TYPE_PROBE)
+                        AppConstants.ETHER_TYPE_REC)
                 .build();
 
         // Action: set output port
@@ -187,6 +191,46 @@ public class MetricsComponent {
 
         // Insert.
         flowRuleService.applyFlowRules(rule);
+    }
+
+    public void enableRecording(Host src, Host dst) {
+        toggleRecording(src, dst, true);
+    }
+
+    public void stopRecording(Host src, Host dst) {
+        toggleRecording(src, dst, false);
+    }
+
+    private void toggleRecording(Host src, Host dst, boolean enable) {
+        final String tableId = "IngressPipeImpl.record_table";
+
+        log.info("{} recording metric for {} - {}", enable ? "Starting" : "Stopping", src.mac(), dst.mac());
+
+        final PiCriterion macCriterion = PiCriterion.builder()
+                .matchExact(
+                        PiMatchFieldId.of("hdr.ethernet.src_addr"),
+                        src.mac().toBytes())
+                .matchExact(
+                        PiMatchFieldId.of("hdr.ethernet.dst_addr"),
+                        dst.mac().toBytes()
+                )
+                .build();
+
+        final PiAction action = PiAction.builder()
+                .withId(PiActionId.of("IngressPipeImpl.start_rec"))
+                .build();
+
+        for (int i = 1; i <= 4; i++) {        // Forge flow rule.
+            final FlowRule rule = Utils.buildFlowRule(
+                    DeviceId.deviceId(String.format("device:s%d", i)),
+                    appId, tableId, macCriterion, action);
+
+            if (enable) {
+                flowRuleService.applyFlowRules(rule);
+            } else {
+                flowRuleService.removeFlowRules(rule);
+            }
+        }
     }
 
     private void metricListener() {
@@ -240,10 +284,10 @@ public class MetricsComponent {
         }
 
         if (!applyCongestionFlow) {
-            L2BridgingComponent.deviceFlows
+            l2BridgingComponent.getDeviceFlows()
                     .forEach((hostMac, flows) ->
                             flows.forEach((p) ->
-                                    L2BridgingComponent.updateFlowRule(
+                                    l2BridgingComponent.updateFlowRule(
                                             flowRuleService,
                                             p.getRight(),
                                             hostMac,
@@ -257,7 +301,7 @@ public class MetricsComponent {
 
         FloydWarshallNetwork network = getNetwork(swm);
 
-        L2BridgingComponent.deviceFlows.forEach((hostMac, flows) -> {
+        l2BridgingComponent.getDeviceFlows().forEach((hostMac, flows) -> {
             int dst = Utils.getSwitchIdFromHostMac(hostMac);
             if (dst == 0) return;
             flows.forEach((p) -> {
@@ -274,7 +318,7 @@ public class MetricsComponent {
                     Integer sw = path.get(i);
                     Integer swNext = path.get(i + 1);
 
-                    L2BridgingComponent.updateFlowRule(
+                    l2BridgingComponent.updateFlowRule(
                             flowRuleService,
                             DeviceId.deviceId("device:s" + sw),
                             hostMac,

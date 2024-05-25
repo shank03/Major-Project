@@ -18,19 +18,9 @@
 #include <core.p4>
 #include <v1model.p4>
 
-// CPU_PORT specifies the P4 port number associated to controller packet-in and
-// packet-out. All packets forwarded via this port will be delivered to the
-// controller as P4Runtime PacketIn messages. Similarly, PacketOut messages from
-// the controller will be seen by the P4 pipeline as coming from the CPU_PORT.
 #define CPU_PORT 255
-
-// CPU_CLONE_SESSION_ID specifies the mirroring session for packets to be cloned
-// to the CPU port. Packets associated with this session ID will be cloned to
-// the CPU_PORT as well as being transmitted via their egress port (set by the
-// bridging/routing/acl table). For cloning to work, the P4Runtime controller
-// needs first to insert a CloneSessionEntry that maps this session ID to the
-// CPU_PORT.
 #define CPU_CLONE_SESSION_ID 99
+#define MAX_REC 5
 
 typedef bit<9>   port_num_t;
 typedef bit<48>  mac_addr_t;
@@ -39,11 +29,8 @@ typedef bit<32>  ipv4_addr_t;
 typedef bit<128> ipv6_addr_t;
 typedef bit<16>  l4_port_t;
 
-#define MAX_REC 5
-
-const bit<16> TYPE_PROBE = 0x819;
+const bit<16> ETHERTYPE_REC = 0x819;
 const bit<16> ETHERTYPE_IPV4 = 0x0800;
-const bit<16> ETHERTYPE_IPV6 = 0x86dd;
 
 const bit<16> ETHERTYPE_ARP  = 0x0806;
 const bit<16> ARP_OPER_REQUEST   = 1;
@@ -52,19 +39,6 @@ const bit<16> ARP_OPER_REPLY     = 2;
 const bit<8> IP_PROTO_ICMP   = 1;
 const bit<8> IP_PROTO_TCP    = 6;
 const bit<8> IP_PROTO_UDP    = 17;
-const bit<8> IP_PROTO_SRV6   = 43;
-const bit<8> IP_PROTO_ICMPV6 = 58;
-
-const mac_addr_t IPV6_MCAST_01 = 0x33_33_00_00_00_01;
-
-const bit<8> ICMP6_TYPE_NS = 135;
-const bit<8> ICMP6_TYPE_NA = 136;
-
-const bit<8> NDP_OPT_TARGET_LL_ADDR = 2;
-
-const bit<32> NDP_FLAG_ROUTER    = 0x80000000;
-const bit<32> NDP_FLAG_SOLICITED = 0x40000000;
-const bit<32> NDP_FLAG_OVERRIDE  = 0x20000000;
 
 
 //------------------------------------------------------------------------------
@@ -156,11 +130,13 @@ header cpu_out_header_t {
 
 header records_t {
     bit<8> records;
+    bit<16> ether_type;
 }
 
 header record_data_t {
     mac_addr_t dpid;
     bit<8> cpu;
+    bit<64> timestamp;
 }
 
 struct parse_data_t {
@@ -185,6 +161,7 @@ struct local_metadata_t {
     l4_port_t   l4_src_port;
     l4_port_t   l4_dst_port;
     bool        is_multicast;
+    bool        is_sink;
     bit<8>      ip_proto;
     bit<8>      icmp_type;
 }
@@ -216,7 +193,7 @@ parser ParserImpl (packet_in packet,
         transition select(hdr.ethernet.ether_type){
             ETHERTYPE_IPV4: parse_ipv4;
             ETHERTYPE_ARP: parse_arp;
-            TYPE_PROBE: parse_record;
+            ETHERTYPE_REC: parse_record;
             default: accept;
         }
     }
@@ -234,8 +211,16 @@ parser ParserImpl (packet_in packet,
         packet.extract(hdr.data.next);
         local_metadata.parse_data.remaining = local_metadata.parse_data.remaining - 1;
         transition select (local_metadata.parse_data.remaining) {
-            0: accept;
+            0: parse_after_record;
             default: parse_record_data;
+        }
+    }
+
+    state parse_after_record {
+        transition select(hdr.records.ether_type){
+            ETHERTYPE_IPV4: parse_ipv4;
+            ETHERTYPE_ARP: parse_arp;
+            default: accept;
         }
     }
 
@@ -410,8 +395,39 @@ control IngressPipeImpl (inout parsed_headers_t    hdr,
         counters = direct_counter(CounterType.packets_and_bytes);
     }
 
-    apply {
+    action set_sink() {
+        local_metadata.is_sink = true;
+    }
 
+    table sw_sink {
+        key = {
+            standard_metadata.instance_type: exact;
+        }
+        actions = {
+            set_sink;
+        }
+    }
+
+    action start_rec() {
+        hdr.records.setValid();
+        hdr.records.records = 0;
+        hdr.records.ether_type = hdr.ethernet.ether_type;
+        hdr.ethernet.ether_type = ETHERTYPE_REC;
+    }
+
+    table record_table {
+        key = {
+            hdr.ethernet.dst_addr: exact;
+            hdr.ethernet.src_addr: exact;
+        }
+        actions = {
+            start_rec;
+        }
+        size = 1024;
+    }
+
+
+    apply {
         if (hdr.cpu_out.isValid()) {
             standard_metadata.egress_spec = hdr.cpu_out.egress_port;
             hdr.cpu_out.setInvalid();
@@ -433,6 +449,18 @@ control IngressPipeImpl (inout parsed_headers_t    hdr,
                 // this is a multicast/broadcast NDP NS packet.
                 l2_ternary_table.apply();
             }
+
+            // If egress port is host, this switch becomes sink
+            sw_sink.apply();
+            if (local_metadata.is_sink == true) {
+                if (!hdr.records.isValid() && hdr.ethernet.ether_type == ETHERTYPE_IPV4 && standard_metadata.ingress_port < 3) {
+                    record_table.apply();
+                    // start_rec();
+                }
+                if (hdr.records.isValid() && standard_metadata.egress_port < 3) {
+                    clone_to_cpu();
+                }
+            }
         }
 
         // Lastly, apply the ACL table.
@@ -446,8 +474,11 @@ control EgressPipeImpl (inout parsed_headers_t hdr,
                         inout standard_metadata_t standard_metadata) {
 
     action set_metrics(mac_addr_t dpid, bit<8> cpu) {
+        hdr.data.push_front(1);
+        hdr.data[0].setValid();
         hdr.data[0].dpid = dpid;
         hdr.data[0].cpu = cpu;
+        hdr.data[0].timestamp = (bit<64>)standard_metadata.egress_global_timestamp;
     }
 
     table sw_metric {
@@ -460,36 +491,35 @@ control EgressPipeImpl (inout parsed_headers_t hdr,
         }
     }
 
+    action clear_records() {
+        hdr.data[0].setInvalid();
+        hdr.data[1].setInvalid();
+        hdr.data[2].setInvalid();
+
+        hdr.ethernet.ether_type = hdr.records.ether_type;
+        hdr.records.setInvalid();
+    }
+
     apply {
+        if (hdr.records.isValid()) {
+            sw_metric.apply();
+            hdr.records.records = hdr.records.records + 1;
+        }
 
         if (standard_metadata.egress_port == CPU_PORT) {
-            // *** TODO EXERCISE 4
-            // Implement logic such that if the packet is to be forwarded to the
-            // CPU port, e.g., if in ingress we matched on the ACL table with
-            // action send/clone_to_cpu...
-            // 1. Set cpu_in header as valid
-            // 2. Set the cpu_in.ingress_port field to the original packet's
-            //    ingress port (standard_metadata.ingress_port).
-
             hdr.cpu_in.setValid();
             hdr.cpu_in.ingress_port = standard_metadata.ingress_port;
             exit;
         }
 
-        // If this is a multicast packet (flag set by l2_ternary_table), make
-        // sure we are not replicating the packet on the same port where it was
-        // received. This is useful to avoid broadcasting NDP requests on the
-        // ingress port.
         if (local_metadata.is_multicast == true &&
               standard_metadata.ingress_port == standard_metadata.egress_port) {
             mark_to_drop(standard_metadata);
         }
 
-        if (hdr.records.isValid()) {
-            hdr.data.push_front(1);
-            hdr.data[0].setValid();
-            sw_metric.apply();
-            hdr.records.records = hdr.records.records + 1;
+        // If egress port is host, this switch becomes sink
+        if (hdr.records.isValid() && local_metadata.is_sink == true && standard_metadata.egress_port < 3 && standard_metadata.instance_type == 0) {
+            clear_records();
         }
     }
 }
@@ -498,29 +528,7 @@ control EgressPipeImpl (inout parsed_headers_t hdr,
 control ComputeChecksumImpl(inout parsed_headers_t hdr,
                             inout local_metadata_t local_metadata)
 {
-    apply {
-        // The following is used to update the ICMPv6 checksum of NDP
-        // NA packets generated by the ndp reply table in the ingress pipeline.
-        // This function is executed only if the NDP header is present.
-        update_checksum(
-            hdr.ipv4.isValid(),
-            {
-                hdr.ipv4.version,
-                hdr.ipv4.ihl,
-                hdr.ipv4.diffserv,
-                hdr.ipv4.totalLen,
-                hdr.ipv4.identification,
-                hdr.ipv4.flags,
-                hdr.ipv4.frag_offset,
-                hdr.ipv4.ttl,
-                hdr.ipv4.protocol,
-                hdr.ipv4.src_addr,
-                hdr.ipv4.dst_addr
-            },
-            hdr.ipv4.hdr_checksum,
-            HashAlgorithm.csum16
-        );
-    }
+    apply {}
 }
 
 

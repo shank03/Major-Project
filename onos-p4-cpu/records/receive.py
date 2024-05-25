@@ -14,8 +14,10 @@ def handle_pkt(pkt):
     if RecordData in pkt:
         data_layers = [l for l in expand(pkt) if l.name == "RecordData"]
         print("")
+        record = [l for l in expand(pkt) if l.name == "Records"][0]
+        print("records: %s, eth_type: %s" % (record.records, record.ether_type))
         for sw in data_layers:
-            print("dpid: %s, cpu: %s" % (sw.dpid, sw.cpu))
+            print("dpid: %s, cpu: %s, timestamp: %s" % (sw.dpid, sw.cpu, sw.timestamp))
 
 
 def main():

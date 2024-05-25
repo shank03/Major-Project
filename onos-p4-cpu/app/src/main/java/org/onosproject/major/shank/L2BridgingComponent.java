@@ -29,6 +29,8 @@ import org.onosproject.net.flow.FlowRule;
 import org.onosproject.net.flow.FlowRuleService;
 import org.onosproject.net.flow.criteria.PiCriterion;
 import org.onosproject.net.group.GroupDescription;
+import org.onosproject.net.group.GroupEvent;
+import org.onosproject.net.group.GroupListener;
 import org.onosproject.net.group.GroupService;
 import org.onosproject.net.host.HostEvent;
 import org.onosproject.net.host.HostListener;
@@ -62,7 +64,8 @@ import static org.onosproject.major.shank.AppConstants.INITIAL_SETUP_DELAY;
         immediate = true,
         // *** TODO EXERCISE 4
         // Enable component (enabled = true)
-        enabled = true
+        enabled = true,
+        service = L2BridgingComponent.class
 )
 public class L2BridgingComponent {
 
@@ -113,7 +116,11 @@ public class L2BridgingComponent {
     // activate()/deactivate().
     //--------------------------------------------------------------------------
 
-    public static final HashMap<MacAddress, List<Pair<PortNumber, DeviceId>>> deviceFlows = new HashMap<>();
+    private final HashMap<MacAddress, List<Pair<PortNumber, DeviceId>>> deviceFlows = new HashMap<>();
+
+    public HashMap<MacAddress, List<Pair<PortNumber, DeviceId>>> getDeviceFlows() {
+        return deviceFlows;
+    }
 
     @Activate
     protected void activate() {
@@ -150,6 +157,7 @@ public class L2BridgingComponent {
     private void setUpDevice(DeviceId deviceId) {
         insertMulticastGroup(deviceId);
         insertMulticastFlowRules(deviceId);
+        setSink(deviceId);
     }
 
     /**
@@ -237,6 +245,29 @@ public class L2BridgingComponent {
         flowRuleService.applyFlowRules(rule1);
     }
 
+    private void setSink(DeviceId deviceId) {
+        int swId = Utils.getSwitchIdFromDeviceId(deviceId);
+        if (swId == 0) return;
+
+        log.info("Setting L2 sink mode on {}...", deviceId);
+
+        final PiCriterion ethType = PiCriterion.builder()
+                .matchExact(
+                        PiMatchFieldId.of("standard_metadata.instance_type"),
+                        0)
+                .build();
+
+        final PiAction setSink = PiAction.builder()
+                .withId(PiActionId.of("IngressPipeImpl.set_sink"))
+                .build();
+
+        final String tableId = "IngressPipeImpl.sw_sink";
+        final FlowRule rule = Utils.buildFlowRule(
+                deviceId, appId, tableId,
+                ethType, setSink);
+        flowRuleService.applyFlowRules(rule);
+    }
+
     /**
      * Insert flow rules to forward packets to a given host located at the given
      * device and port.
@@ -266,7 +297,7 @@ public class L2BridgingComponent {
         });
     }
 
-    public static void updateFlowRule(FlowRuleService flowRuleService, DeviceId srcDeviceId, MacAddress dstHostMac, PortNumber port, ApplicationId appId) {
+    public void updateFlowRule(FlowRuleService flowRuleService, DeviceId srcDeviceId, MacAddress dstHostMac, PortNumber port, ApplicationId appId) {
         final String tableId = "IngressPipeImpl.l2_exact_table";
 
         // Modify P4Runtime entity names to match content of P4Info file (look

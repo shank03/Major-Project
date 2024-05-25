@@ -22,6 +22,7 @@ import org.onlab.packet.DeserializationException;
 import org.onlab.packet.Ethernet;
 import org.onlab.util.ImmutableByteSequence;
 import org.onosproject.major.shank.AppConstants;
+import org.onosproject.major.shank.common.MetricRecorder;
 import org.onosproject.net.ConnectPoint;
 import org.onosproject.net.DeviceId;
 import org.onosproject.net.Port;
@@ -210,6 +211,12 @@ public class InterpreterImpl extends AbstractHandlerBehaviour
         try {
             ethPkt = Ethernet.deserializer().deserialize(
                     payloadBytes, 0, packetIn.data().size());
+
+            if (ethPkt != null) {
+                if (ethPkt.getEtherType() == (short) AppConstants.ETHER_TYPE_REC) {
+                    MetricRecorder.extractRecords(ethPkt.getSourceMAC(), ethPkt.getDestinationMAC(), payloadBytes, deviceId);
+                }
+            }
         } catch (DeserializationException dex) {
             throw new PiInterpreterException(dex.getMessage());
         }
