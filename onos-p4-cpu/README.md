@@ -86,7 +86,8 @@ onos@root > start-rec 00:00:00:00:01:00/None 00:00:00:00:05:00/None
 
 Next, in the mininet cli, we make 3 pings from `h10` to `h30` using the following command:
 ```bash
-mininet> h10 ping -c3 h30
+screen -m util/mn-cmd h10
+root@h10:~# ping -c 3 192.168.1.6
 ```
 Output:
 ```
