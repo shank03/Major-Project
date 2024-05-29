@@ -16,19 +16,17 @@
 
 package org.onosproject.major.shank;
 
-import org.apache.commons.lang3.tuple.Pair;
-import org.onlab.packet.MacAddress;
 import org.onosproject.core.ApplicationId;
 import org.onosproject.major.shank.common.Utils;
 import org.onosproject.mastership.MastershipService;
 import org.onosproject.net.DeviceId;
 import org.onosproject.net.Host;
-import org.onosproject.net.PortNumber;
 import org.onosproject.net.config.NetworkConfigService;
 import org.onosproject.net.device.DeviceEvent;
 import org.onosproject.net.device.DeviceListener;
 import org.onosproject.net.device.DeviceService;
-import org.onosproject.net.flow.*;
+import org.onosproject.net.flow.FlowRule;
+import org.onosproject.net.flow.FlowRuleService;
 import org.onosproject.net.flow.criteria.PiCriterion;
 import org.onosproject.net.group.GroupService;
 import org.onosproject.net.intf.InterfaceService;
@@ -41,15 +39,7 @@ import org.osgi.service.component.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.SocketException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import static org.onosproject.major.shank.AppConstants.INITIAL_SETUP_DELAY;
 
@@ -109,29 +99,14 @@ public class MetricsComponent {
     // activate()/deactivate().
     //--------------------------------------------------------------------------
 
-    private final HashMap<DeviceId, Pair<MacAddress, Integer>> swIds = new HashMap<>();
-    private final int[][] swPorts = new int[5][5];
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
-
-    private DatagramSocket socket;
-
     @Activate
     protected void activate() {
         appId = mainComponent.getAppId();
-        populateSwIds();
 
         // Register listeners to be informed about device and host events.
         deviceService.addListener(deviceListener);
         // Schedule set up of existing devices. Needed when reloading the app.
         mainComponent.scheduleTask(this::setUpAllDevices, INITIAL_SETUP_DELAY);
-
-        try {
-            socket = new DatagramSocket(4445);
-            log.info("Listening for metrics on port {}", socket.getLocalPort());
-            executorService.execute(this::metricListener);
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
-        }
 
         log.info("Started");
     }
@@ -139,7 +114,6 @@ public class MetricsComponent {
     @Deactivate
     protected void deactivate() {
         deviceService.removeListener(deviceListener);
-        executorService.shutdown();
 
         log.info("Stopped");
     }
@@ -226,167 +200,6 @@ public class MetricsComponent {
         }
     }
 
-    private void metricListener() {
-        while (true) {
-            try {
-                byte[] buffer = new byte[255];
-                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-                socket.receive(packet);
-
-//                int port = packet.getPort();
-//                log.info("Received packet from port {}", port);
-
-                String[] fields = toData(packet.getData()).split(",");
-                DeviceId deviceId = DeviceId.deviceId(fields[0]);
-                int cpuInfo = Math.min(250, Integer.parseInt(fields[1]));
-
-                Pair<MacAddress, Integer> metric = swIds.get(deviceId);
-                if (metric == null) {
-                    continue;
-                }
-                swIds.put(deviceId, Pair.of(metric.getLeft(), cpuInfo));
-                setUpDevice(deviceId);
-
-//                updateCongestionFlows();
-            } catch (Exception e) {
-                log.error("Error while parsing metric", e);
-                break;
-            }
-        }
-    }
-
-    private String toData(byte[] buff) {
-        StringBuilder builder = new StringBuilder();
-        for (byte b : buff) {
-            if (b == 0) continue;
-            builder.append((char) b);
-        }
-        return builder.toString();
-    }
-
-    private static final int INF = 511;
-
-    private void updateCongestionFlows() {
-        boolean applyCongestionFlow = false;
-        int[] swm = new int[5];
-        for (Map.Entry<DeviceId, Pair<MacAddress, Integer>> entry : swIds.entrySet()) {
-            String id = entry.getKey().toString();
-            Pair<MacAddress, Integer> metric = entry.getValue();
-            swm[Integer.parseInt(id.substring(id.length() - 1))] = metric.getRight();
-            applyCongestionFlow = applyCongestionFlow || metric.getRight() > 80;
-        }
-
-        if (!applyCongestionFlow) {
-            l2BridgingComponent.getDeviceFlows()
-                    .forEach((hostMac, flows) ->
-                            flows.forEach((p) ->
-                                    l2BridgingComponent.updateFlowRule(
-                                            flowRuleService,
-                                            p.getRight(),
-                                            hostMac,
-                                            p.getLeft(),
-                                            appId
-                                    )
-                            )
-                    );
-            return;
-        }
-
-        FloydWarshallNetwork network = getNetwork(swm);
-
-        l2BridgingComponent.getDeviceFlows().forEach((hostMac, flows) -> {
-            int dst = Utils.getSwitchIdFromHostMac(hostMac);
-            if (dst == 0) return;
-            flows.forEach((p) -> {
-                int src = Utils.getSwitchIdFromDeviceId(p.getRight());
-                if (src == 0) return;
-                if (src == dst) return;
-
-                Vector<Integer> path = network.getPath(src, dst);
-                if (path == null || path.size() < 3) {
-                    return;
-                }
-
-                for (int i = 0; i < path.size() - 1; i++) {
-                    Integer sw = path.get(i);
-                    Integer swNext = path.get(i + 1);
-
-                    l2BridgingComponent.updateFlowRule(
-                            flowRuleService,
-                            DeviceId.deviceId("device:s" + sw),
-                            hostMac,
-                            PortNumber.portNumber(swPorts[sw][swNext]),
-                            appId
-                    );
-                }
-            });
-        });
-    }
-
-    private static FloydWarshallNetwork getNetwork(int[] swm) {
-        FloydWarshallNetwork network = new FloydWarshallNetwork(
-                new int[][]{
-                        //       0,     1,      2,      3,      4
-                        /* 0 */ {0, swm[1], swm[2], swm[3], swm[4]},
-                        /* 1 */ {swm[0], 0, swm[2], INF, swm[4]},
-                        /* 2 */ {swm[0], swm[1], 0, swm[3], INF},
-                        /* 3 */ {swm[0], INF, swm[2], 0, swm[4]},
-                        /* 4 */ {swm[0], swm[1], INF, swm[3], 0},
-                }
-        );
-        network.compute();
-        return network;
-    }
-
-    static class FloydWarshallNetwork {
-        private static final int MAX_N = 5;
-
-        private final int[][] graph = new int[MAX_N][MAX_N];
-        private final int[][] subSeq = new int[MAX_N][MAX_N];
-
-        int V;
-
-        FloydWarshallNetwork(int[][] graph) {
-            V = graph.length;
-            for (int i = 0; i < V; i++) {
-                for (int j = 0; j < V; j++) {
-                    this.graph[i][j] = graph[i][j];
-                    subSeq[i][j] = this.graph[i][j] == INF ? -1 : j;
-                }
-            }
-        }
-
-        void compute() {
-            for (int k = 0; k < V; k++) {
-                for (int i = 0; i < V; i++) {
-                    for (int j = 0; j < V; j++) {
-                        if (graph[i][k] == INF || graph[k][j] == INF) {
-                            continue;
-                        }
-                        if (graph[i][j] > graph[i][k] + graph[k][j]) {
-                            graph[i][j] = graph[i][k] + graph[k][j];
-                            subSeq[i][j] = subSeq[i][k];
-                        }
-                    }
-                }
-            }
-        }
-
-        Vector<Integer> getPath(int u, int v) {
-            if (subSeq[u][v] == -1) {
-                return new Vector<>();
-            }
-
-            Vector<Integer> path = new Vector<>();
-            path.add(u);
-            while (u != v) {
-                u = subSeq[u][v];
-                path.add(u);
-            }
-            return path;
-        }
-    }
-
 //--------------------------------------------------------------------------
 // EVENT LISTENERS
 //
@@ -449,34 +262,5 @@ public class MetricsComponent {
                 setUpDevice(device.id());
             }
         });
-    }
-
-    private void populateSwIds() {
-        swIds.put(DeviceId.deviceId("device:s0"), Pair.of(MacAddress.valueOf("AA:00:00:00:00:00"), 0));
-        swIds.put(DeviceId.deviceId("device:s1"), Pair.of(MacAddress.valueOf("11:00:00:00:00:00"), 0));
-        swIds.put(DeviceId.deviceId("device:s2"), Pair.of(MacAddress.valueOf("22:00:00:00:00:00"), 0));
-        swIds.put(DeviceId.deviceId("device:s3"), Pair.of(MacAddress.valueOf("33:00:00:00:00:00"), 0));
-        swIds.put(DeviceId.deviceId("device:s4"), Pair.of(MacAddress.valueOf("44:00:00:00:00:00"), 0));
-
-        swPorts[0][1] = 1;
-        swPorts[0][2] = 2;
-        swPorts[0][3] = 3;
-        swPorts[0][4] = 4;
-
-        swPorts[1][0] = 3;
-        swPorts[1][2] = 5;
-        swPorts[1][4] = 4;
-
-        swPorts[2][0] = 3;
-        swPorts[2][1] = 4;
-        swPorts[2][3] = 5;
-
-        swPorts[3][0] = 3;
-        swPorts[3][2] = 4;
-        swPorts[3][4] = 5;
-
-        swPorts[4][0] = 3;
-        swPorts[4][1] = 5;
-        swPorts[4][3] = 4;
     }
 }
