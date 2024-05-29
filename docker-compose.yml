@@ -9,11 +9,7 @@ networks:
 
 services:
     mininet:
-        image: opennetworking/ngsdn-tutorial:stratum_bmv2
-        # image: opennetworking/p4mn:latest
-        # image: opennetworking/mn-stratum:latest
-        # image: shank03/mn-stratum:latest
-        # image: shank03/stratum-bmv2:latest
+        image: shank03/mn-stratum:latest
         hostname: mininet
         container_name: mininet
         privileged: true
@@ -23,7 +19,6 @@ services:
         volumes:
             - ./tmp:/tmp
             - ./mininet:/mininet
-            - ./records:/records
             - ./extern:/extern
         ports:
             - "50001:50001"
@@ -33,12 +28,12 @@ services:
         networks:
             default:
                 ipv4_address: 172.24.0.2
-        # NGSDN_TOPO_PY is a Python-based Mininet script defining the topology. Its
+        # TOPO_PY is a Python-based Mininet script defining the topology. Its
         # value is passed to docker-compose as an environment variable, defined in
         # the Makefile.
-        entrypoint: "/mininet/${NGSDN_TOPO_PY}"
+        command: "/mininet/${TOPO_PY}"
     onos:
-        image: onosproject/onos:2.2.2
+        image: onosproject/onos:2.7-latest
         hostname: onos
         container_name: onos
         ports:

@@ -16,6 +16,7 @@
 
 package org.onosproject.major.shank.pipeconf;
 
+import org.onosproject.core.ApplicationId;
 import org.onosproject.major.shank.AppConstants;
 import org.onosproject.net.DeviceId;
 import org.onosproject.net.PortNumber;
@@ -142,6 +143,11 @@ public class PipelinerImpl extends AbstractHandlerBehaviour implements Pipeliner
     @Override
     public void next(NextObjective obj) {
         obj.context().ifPresent(c -> c.onError(obj, ObjectiveError.UNSUPPORTED));
+    }
+
+    @Override
+    public void purgeAll(ApplicationId appId) {
+        System.out.println("TODO: purgeAll");
     }
 
     @Override

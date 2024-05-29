@@ -15,7 +15,8 @@ This project is implementation of the following features:
 ## Getting Started
 
 ### Prerequisites
-Make sure to have docker installed on your machine. If not, you can install it from [here](https://docs.docker.com/get-docker/).
+- Make sure to have docker installed on your machine. If not, you can install it from [here](https://docs.docker.com/get-docker/).
+- Maven with JDK 11
 
 ### Installation
 1. Clone the repository

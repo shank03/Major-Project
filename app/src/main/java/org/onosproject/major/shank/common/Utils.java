@@ -157,6 +157,12 @@ public final class Utils {
         return ((int) hostMac.toString().charAt(13) - 47) / 2;
     }
 
+    public static MacAddress getDpidFromDeviceId(DeviceId deviceId) {
+        int id = getSwitchIdFromDeviceId(deviceId);
+        String m = id == 0 ? "A" : String.valueOf(id).toUpperCase();
+        return MacAddress.valueOf(String.format("%s%s:00:00:00:00:00", m, m));
+    }
+
     public static int getSwitchIdFromDeviceId(DeviceId deviceId) {
         String id = deviceId.toString();
         return Integer.parseInt(id.substring(id.length() - 1));

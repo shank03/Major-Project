@@ -158,13 +158,6 @@ public class MetricsComponent {
     private void setUpDevice(DeviceId deviceId) {
         final String tableId = "EgressPipeImpl.sw_metric";
 
-        Pair<MacAddress, Integer> metric = swIds.get(deviceId);
-        if (metric == null) {
-            metric = Pair.of(MacAddress.valueOf("FF:FF:FF:FF:FF:FF"), 0);
-        }
-
-//        log.info("Updating metric rule for {} with {}", deviceId, metric.getRight());
-
         final PiCriterion hostMacCriterion = PiCriterion.builder()
                 .matchExact(
                         PiMatchFieldId.of("hdr.ethernet.ether_type"),
@@ -177,10 +170,10 @@ public class MetricsComponent {
                 .withParameters(List.of(
                         new PiActionParam(
                                 PiActionParamId.of("dpid"),
-                                metric.getLeft().toBytes()),
+                                Utils.getDpidFromDeviceId(deviceId).toBytes()),
                         new PiActionParam(
-                                PiActionParamId.of("cpu"),
-                                metric.getRight())
+                                PiActionParamId.of("sw"),
+                                Utils.getSwitchIdFromDeviceId(deviceId))
                 ))
                 .build();
         // ---- END SOLUTION ----

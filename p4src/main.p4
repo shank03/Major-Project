@@ -18,6 +18,8 @@
 #include <core.p4>
 #include <v1model.p4>
 
+#include "../extern/cpu.p4"
+
 #define CPU_PORT 255
 #define CPU_CLONE_SESSION_ID 99
 #define MAX_REC 5
@@ -473,11 +475,12 @@ control EgressPipeImpl (inout parsed_headers_t hdr,
                         inout local_metadata_t local_metadata,
                         inout standard_metadata_t standard_metadata) {
 
-    action set_metrics(mac_addr_t dpid, bit<8> cpu) {
+    action set_metrics(mac_addr_t dpid, bit<8> sw) {
         hdr.data.push_front(1);
         hdr.data[0].setValid();
         hdr.data[0].dpid = dpid;
-        hdr.data[0].cpu = cpu;
+        set_cpu(hdr.data[0].cpu, sw);
+        // hdr.data[0].cpu = cpu;
         hdr.data[0].timestamp = (bit<64>)standard_metadata.egress_global_timestamp;
     }
 
