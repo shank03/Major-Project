@@ -99,7 +99,7 @@ _copy_p4c_out:
 _mvn_package:
 	$(info *** Building ONOS app...)
 	@mkdir -p app/target
-	@cd app && mvn -o clean package
+	@cd app && mvn clean package
 
 app-build: bmv2-extern p4-build _copy_p4c_out _mvn_package
 	$(info *** ONOS app .oar package created succesfully)
