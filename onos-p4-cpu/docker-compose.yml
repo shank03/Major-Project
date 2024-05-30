@@ -44,6 +44,7 @@ services:
                 ipv4_address: 172.24.0.3
         volumes:
             - ./tmp/onos:/root/onos/apache-karaf-4.2.8/data/tmp
+            - ./records:/records
         environment:
             - ONOS_APPS=gui2,drivers.bmv2,lldpprovider,hostprovider
         links:

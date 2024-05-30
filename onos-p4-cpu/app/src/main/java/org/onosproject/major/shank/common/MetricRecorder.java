@@ -7,6 +7,7 @@ import org.onosproject.major.shank.headers.RecordDataHeader;
 import org.onosproject.major.shank.headers.RecordHeader;
 import org.onosproject.net.DeviceId;
 
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,10 +18,10 @@ public class MetricRecorder {
     }
 
     public static class Record {
-        private DeviceId provider;
-        private MacAddress dpid;
-        private int cpu;
-        private long timestamp;
+        private final DeviceId provider;
+        private final MacAddress dpid;
+        private final int cpu;
+        private final long timestamp;
 
         public Record(DeviceId provider, MacAddress dpid, int cpu, long timestamp) {
             this.provider = provider;
@@ -44,7 +45,17 @@ public class MetricRecorder {
         public DeviceId getProvider() {
             return provider;
         }
+
+        @Override
+        public String toString() {
+            return provider +
+                    "," + dpid +
+                    "," + cpu +
+                    "," + timestamp;
+        }
     }
+
+    private static final long currentMillis = System.currentTimeMillis();
 
     private static final HashMap<Pair<MacAddress, MacAddress>, List<Record>> dbRecords = new HashMap<>();
 
@@ -73,13 +84,27 @@ public class MetricRecorder {
                         );
                 System.out.println("dpid: " + data.getDpid() + ", cpu: " + data.getCpuUsage() + ", timestamp: " + data.getTimestamp());
 
+                Record record = new Record(deviceId, data.getDpid(), data.getCpuUsage(), data.getTimestamp());
                 List<Record> list = dbRecords.getOrDefault(key, new ArrayList<>());
-                list.add(new Record(deviceId, data.getDpid(), data.getCpuUsage(), data.getTimestamp()));
+                list.add(record);
+
                 dbRecords.put(key, list);
+                appendRecord(srcMac, dstMac, record);
             }
         } catch (Exception e) {
             System.out.println("ERR: " + e.getMessage());
-//            e.printStackTrace();
+        }
+    }
+
+    private static void appendRecord(MacAddress srcMac, MacAddress dstMac, Record record) {
+        Path recordPath = Paths.get(String.format("/records/cpu-%s.csv", currentMillis));
+        try {
+            if (!Files.exists(recordPath, LinkOption.NOFOLLOW_LINKS)) {
+                Files.createFile(recordPath);
+            }
+            Files.writeString(recordPath, String.format("%s,%s,%s\n", srcMac, dstMac, record), StandardOpenOption.APPEND);
+        } catch (Exception e) {
+            System.out.println("FILE ERR: " + e.getMessage());
         }
     }
 }

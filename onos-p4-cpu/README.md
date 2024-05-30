@@ -131,6 +131,11 @@ You can stop the whole environment using the following command:
 $ make stop
 ```
 
+You can also make graph from the csv records ONOS recorded using the following command:
+```bash
+$ make plt-graph
+```
+
 ## Conclusion
 
 Hosts can trasmit packets to each other without breaking protocol with the hidden abstraction of tracking CPU utilization of the switches in the network and sharing 

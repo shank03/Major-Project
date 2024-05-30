@@ -119,6 +119,20 @@ app-uninstall:
 
 app-reload: app-uninstall app-install
 
+CSVS := $(wildcard **/*.csv)
+TARGETS := $(CSVS:.csv=.png)
+
+py-venv:
+	$(info *** Installing python venv deps $< ...)
+	python3 -m venv .venv
+	@.venv/bin/python -m pip install matplotlib pandas
+
+plt-graph: py-venv $(TARGETS)
+
+%.png: %.csv
+	$(info *** Generating graphs for $< ...)
+	@.venv/bin/python records/graph.py $<
+
 run:
 	make stop
 	make clean

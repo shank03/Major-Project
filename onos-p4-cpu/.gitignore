@@ -23,6 +23,7 @@ ngsdn
 
 .idea
 .vscode
+.venv
 
 build
 tutorials
